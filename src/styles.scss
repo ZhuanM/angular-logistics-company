@@ -1,1 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.main-page {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+
+.main-page-top {
+    flex: 0 1 auto;
+}
+
+.main-page-content {
+    overflow: hidden;
+    flex: 1 1 auto;
+    position: relative;
+    height: 100%;
+}
+
+.main-page-bottom {
+    flex: 0 1 auto; 
+}
