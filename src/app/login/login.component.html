@@ -1,0 +1,46 @@
+<div class="row no-gutters h-100 w-100">
+  <div class="d-none d-xl-block col-xl-7 login-background"></div>
+  <div class="col-12 col-xl-5">
+    <div class="row h-100 m-0 justify-content-center align-items-center">
+      <div class="col-8 mb-4">
+        <div class="unselectable mb-4">
+          <img src="../../assets/rocket-logo.svg" alt="Postworks Logo">
+        </div>
+        <div class="fs-48 main-title-text mb-3 font-metropolis-semi-bold">
+          Login
+        </div>
+        <div class="fs-16 under-main-text sm-spaced-text mb-5">
+          Login to access your account
+        </div>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <mat-form-field class="w-100">
+              <mat-label>Email Address</mat-label>
+              <input type="email" matInput formControlName="email">
+              <mat-error>{{getLoginEmailErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="mb-3">
+            <mat-form-field class="w-100">
+              <mat-label>Password</mat-label>
+              <input matInput [type]="hideLoginPassword ? 'password' : 'text'" formControlName="password">
+              <mat-icon class="password-hide-icon" matSuffix (click)="hideLoginPassword = !hideLoginPassword">{{hideLoginPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <mat-hint *ngIf="!this.loginForm.get('password').value" class="font-metropolis-regular">Password must contain at least 8 characters</mat-hint>
+              <mat-error>{{getLoginPasswordErrorMessage()}}</mat-error>
+            </mat-form-field>
+          </div>
+
+          <button mat-raised-button class="w-100 red-button white-color text-uppercase lg-spaced-text login-button-text font-metropolis-medium" [disabled]="!loginForm.valid" type="submit">
+            Login
+          </button>
+
+          <div *ngIf="(authError$ | async)" class="w-100 lg-spaced-text font-metropolis-medium login-error-wrapper p-2 d-flex justify-content-center align-items-center mt-4">
+            Incorrect Email Address and/or Password!
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

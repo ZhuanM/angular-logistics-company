@@ -1,3 +1,5 @@
 export const environment = {
-  production: true
+  production: true,
+  // TOOD CHANGE URL
+  apiBaseUrl: 'https://nbu-logistics.bg/'
 };

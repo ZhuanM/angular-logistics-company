@@ -3,7 +3,7 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
@@ -49,6 +49,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { AppRoutingModule } from "./app-routing.module";
+import { HeaderComponent } from "./header/header.component";
+import { LoginComponent } from "./login/login.component";
+import { HomeComponent } from "./home/home.component";
+import { FooterComponent } from "./footer/footer.component";
+import { RegisterComponent } from "./register/register.component";
+import * as fromApp from './app-reducer';
+import { AuthEffects } from "./auth/store/auth.effects";
+import { HeaderEffects } from "./header/store/header.effects";
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'fill'
@@ -56,14 +64,25 @@ const appearance: MatFormFieldDefaultOptions = {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    LoginComponent,
+    HomeComponent,
+    FooterComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([]),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    StoreModule.forRoot(fromApp.appReducer),
+    EffectsModule.forRoot([
+      AuthEffects,
+      HeaderEffects,
+    ]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      // logOnly: environment.production, // Restrict extension to log-only mode
+    }),
     StoreRouterConnectingModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
@@ -105,7 +124,16 @@ const appearance: MatFormFieldDefaultOptions = {
     MatTooltipModule,
   ],
   providers: [
-    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: appearance }
+    { 
+      provide: [ 
+        MAT_FORM_FIELD_DEFAULT_OPTIONS,
+        HTTP_INTERCEPTORS
+      ],
+      useValue: appearance,
+      // TODO ADD INTERCEPTOR
+      // useClass: AuthInterceptor,
+      // multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,39 @@
+.header-container {
+  // width: 100vw;
+  height: 6vh;
+  min-height: 40px;
+  font-size: 14px;
+  background-color: var(--postworks-red);
+  z-index: 1;
+
+  img {
+    // margin-bottom: 0.3vh;
+    height: 6.8vmin;
+    max-height: 78%;
+  }
+
+  .header-text {
+    line-height: 16px;
+  }
+
+  .settings-icon {
+    background-color: #9F1207;
+  }
+
+  .settings-button {
+    height: 100%;
+    width: 50px;
+  }
+}
+
+@media (max-width: 450px) {
+  .header-text {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 350px) {
+  .header-text {
+    font-size: 11px;
+  }
+}
