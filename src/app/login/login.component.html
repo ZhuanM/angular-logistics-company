@@ -1,10 +1,10 @@
-<div class="row no-gutters h-100 w-100">
-  <div class="d-none d-xl-block col-xl-7 login-background"></div>
+<div class="row justify-content-center no-gutters h-100 w-100">
+  <!-- <div class="d-none d-xl-block col-xl-7 login-background"></div> -->
   <div class="col-12 col-xl-5">
     <div class="row h-100 m-0 justify-content-center align-items-center">
-      <div class="col-8 mb-4">
-        <div class="unselectable mb-4">
-          <img src="../../assets/logo/logo_transparent.png" alt="NBU Logistics Logo">
+      <div class="col mb-4">
+        <div class="d-flex justify-content-center unselectable mb-4">
+          <img class="login-logo" src="../../assets/logo/logo_transparent-black.png" alt="NBU Logistics Logo">
         </div>
         <div class="fs-48 main-title-text mb-3 font-metropolis-semi-bold">
           Login
@@ -26,7 +26,7 @@
             <mat-form-field class="w-100">
               <mat-label>Password</mat-label>
               <input matInput [type]="hideLoginPassword ? 'password' : 'text'" formControlName="password">
-              <mat-icon class="password-hide-icon" matSuffix (click)="hideLoginPassword = !hideLoginPassword">{{hideLoginPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+              <mat-icon class="password-hide-icon pointer unselectable" matSuffix (click)="hideLoginPassword = !hideLoginPassword">{{hideLoginPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
               <mat-hint *ngIf="!this.loginForm.get('password').value" class="font-metropolis-regular">Password must contain at least 8 characters</mat-hint>
               <mat-error>{{getLoginPasswordErrorMessage()}}</mat-error>
             </mat-form-field>

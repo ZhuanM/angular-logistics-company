@@ -7,11 +7,12 @@
   <div class="col-auto pointer h-100 d-flex align-items-center pr-0 unselectable" routerLink="/home" (click)="redirectToHome()">
     <img src="./../../assets/logo/logo_transparent.png" alt="NBU Logistics Logo">
   </div>
-  <div class="col h-100 d-flex justify-content-end align-items-center pl-0">
+  <!-- TODO CHECK IF USER IS LOGGED IN IN ORDER TO SHOW LOG OUT FUNCTIONALITY -->
+  <div *ngIf="true" class="col h-100 d-flex justify-content-end align-items-center pl-0">
     <div class="row h-100">
       <div class="col-auto white-color d-flex align-items-center pointer settings-icon d-flex align-items-center p-0 ml-4">
         <button mat-icon-button class="settings-button" [matMenuTriggerFor]="settings" [disableRipple]="true" aria-label="Settings">
-          <mat-icon>settings</mat-icon>
+          <mat-icon>manage_accounts</mat-icon>
         </button>
         <mat-menu #settings="matMenu">
           <button mat-menu-item (click)="onLogout()">Logout</button>

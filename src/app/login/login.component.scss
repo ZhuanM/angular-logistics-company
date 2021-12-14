@@ -1,8 +1,13 @@
-.login-background {
-  background-image: url("../../assets/login-background.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
+// .login-background {
+//   background-image: url("../../assets/login-background.jpg");
+//   background-size: cover;
+//   background-repeat: no-repeat;
+//   background-position: 50% 50%;
+// }
+
+.login-logo {
+  min-width: 70%;
+  width: 40vmin;
 }
 
 .main-title-text {
@@ -11,10 +16,6 @@
 
 .under-main-text {
   color: rgba(0, 0, 0, 0.6);
-}
-
-.keep-me-text {
-  letter-spacing: 0.1px;
 }
 
 .login-button-text {
