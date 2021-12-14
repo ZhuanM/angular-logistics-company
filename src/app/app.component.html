@@ -11,7 +11,7 @@
                         <mat-list-item class="mat-list-height" [ngClass]="{'active-item': item.clicked}"
                             *ngFor="let item of sideNavItems; let i = index" (click)="itemClicked(i)">
                             <mat-icon mat-list-icon class="grey-color">{{item.icon}}</mat-icon>
-                            <div mat-line class="fs-12 font-metropolis-regular md-spaced-text light-black-color">
+                            <div mat-line class="mat-list-text fs-14 font-metropolis-regular md-spaced-text grey-color">
                                 {{item.text}}</div>
                         </mat-list-item>
                     </mat-nav-list>
@@ -27,11 +27,11 @@
     </div>
 
     <!-- TODO CHECK IF THE BELOW DIV NEEDED - ORIGINALLY FOR UPDATING THE SIDENAV ITEMS CORRECTLY -->
-    <div class="main-page-content">
+    <!-- <div class="main-page-content">
         <div class="h-100 overflow-auto">
             <app-login (login)="toHome()"></app-login>
         </div>
-    </div>
+    </div> -->
 </div>
 
 <!-- TODO ADD LOADER -->

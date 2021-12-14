@@ -3,13 +3,14 @@
   height: 6vh;
   min-height: 40px;
   font-size: 14px;
-  background-color: var(--postworks-red);
+  background-color: rgb(46 104 179);
   z-index: 1;
 
   img {
     // margin-bottom: 0.3vh;
-    height: 6.8vmin;
-    max-height: 78%;
+    height: 10.8vmin;
+    max-height: 168%;
+    min-height: 116%;
   }
 
   .header-text {
@@ -17,7 +18,7 @@
   }
 
   .settings-icon {
-    background-color: #9F1207;
+    background-color: rgb(8 63 136);
   }
 
   .settings-button {

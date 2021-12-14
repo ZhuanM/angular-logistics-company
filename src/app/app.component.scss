@@ -3,7 +3,7 @@
     height: 100%;
     width: 100%;
     overflow-y: auto;
-    background-color: var(--app-background-color);
+    background-color: #E5E5E5;
 }
 
 mat-sidenav {
@@ -38,6 +38,14 @@ mat-sidenav-container {
 }
 
 .active-item {
-    background-color: #FFD600 !important;
+    background-color: rgb(46 104 179) !important;
     border-radius: 4px;
+}
+
+.active-item mat-icon {
+    color: white !important;
+}
+
+.active-item .mat-list-text {
+    color: white !important;
 }

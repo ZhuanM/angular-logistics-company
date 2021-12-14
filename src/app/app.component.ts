@@ -127,6 +127,7 @@ export class AppComponent extends BaseComponent {
             this.closeSidenav();
           }
         } else {
+          this.router.navigate(['login']);
           if (this.sidenav.mode == 'over') {
             this.closeSidenav();
           }
