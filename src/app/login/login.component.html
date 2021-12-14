@@ -27,7 +27,7 @@
               <mat-label>Password</mat-label>
               <input matInput [type]="hideLoginPassword ? 'password' : 'text'" formControlName="password">
               <mat-icon class="password-hide-icon pointer unselectable" matSuffix (click)="hideLoginPassword = !hideLoginPassword">{{hideLoginPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-              <mat-hint *ngIf="!this.loginForm.get('password').value" class="font-metropolis-regular">Password must contain at least 8 characters</mat-hint>
+              <!-- <mat-hint *ngIf="!this.loginForm.get('password').value" class="font-metropolis-regular">Password must contain at least 8 characters</mat-hint> -->
               <mat-error>{{getLoginPasswordErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
