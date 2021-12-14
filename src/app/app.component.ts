@@ -5,7 +5,7 @@ import { first, takeUntil } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { BaseComponent } from './shared/base.component';
 import { BreakpointObserver } from '@angular/cdk/layout';
-import { NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import * as HeaderActions from './header/store/header.actions';
 import * as HeaderSelectors from './header/store/header.selectors';
@@ -24,8 +24,8 @@ export class AppComponent extends BaseComponent {
   public sideNavItems: Array<any>;
 
   private homeURL: boolean = false;
-  private reprintURL: boolean = false;
-  private batchReconciliationURL: boolean = false;
+  private loginURL: boolean = false;
+  private registerURL: boolean = false;
 
   constructor(
     private observer: BreakpointObserver,
@@ -41,24 +41,24 @@ export class AppComponent extends BaseComponent {
   // THIS FUNCTION EXISTS BECAUSE this.location.path() doesn't return correct url when logging in and doesn't update accordingly the header and sidenav
   public toHome() {
     this.homeURL = true;
-    this.reprintURL = false;
-    this.batchReconciliationURL = false;
+    this.loginURL = false;
+    this.registerURL = false;
 
     this.sideNavItems = [
       {
-        icon: "summarize",
-        text: "Update Batch Status",
+        icon: "home",
+        text: "Home",
         clicked: this.homeURL
       },
       {
-        icon: "print",
-        text: "Reprint",
-        clicked: this.reprintURL
+        icon: "login",
+        text: "Login",
+        clicked: this.loginURL
       },
       {
-        icon: "analytics",
-        text: "Batch Reconciliation",
-        clicked: this.batchReconciliationURL
+        icon: "account_circle",
+        text: "Register",
+        clicked: this.registerURL
       },
     ];
   }
@@ -66,33 +66,33 @@ export class AppComponent extends BaseComponent {
   public updateSidenavItems() {
     if (this.location.path() == "/home") {
       this.homeURL = true;
-      this.reprintURL = false;
-      this.batchReconciliationURL = false;
-    } else if (this.location.path() == "/reprint") {
-      this.reprintURL = true;
+      this.loginURL = false;
+      this.registerURL = false;
+    } else if (this.location.path() == "/login") {
+      this.loginURL = true;
       this.homeURL = false;
-      this.batchReconciliationURL = false;
-    } else if (this.location.path() == "/batch_reconciliation") {
-      this.batchReconciliationURL = true;
+      this.registerURL = false;
+    } else if (this.location.path() == "/register") {
+      this.registerURL = true;
       this.homeURL = false;
-      this.reprintURL = false;
+      this.loginURL = false;
     }
 
     this.sideNavItems = [
       {
-        icon: "summarize",
-        text: "Update Batch Status",
+        icon: "home",
+        text: "Home",
         clicked: this.homeURL
       },
       {
-        icon: "print",
-        text: "Reprint",
-        clicked: this.reprintURL
+        icon: "login",
+        text: "Login",
+        clicked: this.loginURL
       },
       {
-        icon: "analytics",
-        text: "Batch Reconciliation",
-        clicked: this.batchReconciliationURL
+        icon: "account_circle",
+        text: "Register",
+        clicked: this.registerURL
       },
     ];
   }
@@ -120,9 +120,8 @@ export class AppComponent extends BaseComponent {
           }
         }
         break;
-      case "Reprint":
-        // ADD WHEN REPRINT IS DONE
-        if (this.location.path() == "/reprint") {
+      case "Login":
+        if (this.location.path() == "/login") {
           window.location.reload();
           if (this.sidenav.mode == 'over') {
             this.closeSidenav();
@@ -133,14 +132,14 @@ export class AppComponent extends BaseComponent {
           }
         }
         break;
-      case "Batch Reconciliation":
-        if (this.location.path() == "/batch_reconciliation") {
+      case "Register":
+        if (this.location.path() == "/register") {
           window.location.reload();
           if (this.sidenav.mode == 'over') {
             this.closeSidenav();
           }
         } else {
-          this.router.navigate(['batch_reconciliation']);
+          this.router.navigate(['register']);
           if (this.sidenav.mode == 'over') {
             this.closeSidenav();
           }
