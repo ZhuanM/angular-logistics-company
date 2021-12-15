@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Output } from '@angular/core';
 import { BaseComponent } from '../shared/base.component';
 import { select, Store } from '@ngrx/store';
 import { AppState } from '../models/app-state.interface';
@@ -8,6 +8,7 @@ import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/fo
 import * as AuthActions from '../auth/store/auth.actions';
 import * as AuthSelectors from '../auth/store/auth.selectors';
 import { appLoading } from '../loader/store/loader.actions';
+import { MatRadioChange } from '@angular/material/radio';
 
 
 @Component({
@@ -22,34 +23,64 @@ export class RegisterComponent extends BaseComponent {
 
   public hideRegisterPassword: boolean = true;
   public hideRegisterRepeatPassword: boolean = true;
+  
+  public showSecurityKeyForm: boolean = false;
+  public hideSecurityKey: boolean = true;
 
   public registerForm = new FormGroup({
+    fullName: new FormControl('', [Validators.required]),
     username: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     passwords: new FormGroup({
       password: new FormControl('', [Validators.required]),
       repeatPassword: new FormControl('', [Validators.required]),
     }, this.passwordConfirming),
+    role: new FormControl(''),
+    securityKey: new FormControl('')
   });
   
   constructor(
     private store: Store<AppState>,
+    private cdr: ChangeDetectorRef,
   ) {
     super();
+  }
+
+  ngOnInit() {
+    this.registerForm.get('role').setValue('client');
   }
 
   public onSubmit() {
     if (this.registerForm.valid) {
       this.store.dispatch(appLoading({ loading: true }));
-      // this.store.dispatch(AuthActions.login(
+      // this.store.dispatch(AuthActions.register(
       //   {
+      //     fullName: this.registerForm.get('fullName').value,
+      //     username: this.registerForm.get('username').value,
       //     email: this.registerForm.get('email').value,
-      //     password: this.registerForm.get('password').value
+      //     password: this.registerForm.get('passwords')?.get('password').value,
       //   }
       // ));
       
       // this.login.emit(true);
     }
+  }
+
+  public onRadioChange(event: MatRadioChange) {
+    if (event.value == 'client') {
+      this.showSecurityKeyForm = false;
+
+      this.registerForm.get('securityKey').clearValidators();
+      this.registerForm.get('securityKey').setValue('');
+      this.registerForm.get('securityKey').markAsPristine();
+      this.registerForm.get('securityKey').markAsUntouched();
+    } else {
+      this.showSecurityKeyForm = true;
+
+      this.registerForm.get('securityKey').setValidators(Validators.required);
+    }
+
+    this.cdr.detectChanges();
   }
 
   private passwordConfirming(c: AbstractControl): { invalid: boolean } {
@@ -59,13 +90,22 @@ export class RegisterComponent extends BaseComponent {
   }
   
   // ERRORS
-  public getRegisterUsernameErrorMessage() {
-    let email = this.registerForm.get('email');
-    if (email.hasError('required')) {
-      return 'Please enter your email';
+  public getRegisterFullNameErrorMessage() {
+    let fullName = this.registerForm.get('fullName');
+    if (fullName.hasError('required')) {
+      return 'Please enter your full name';
     }
 
-    return email.hasError('email') ? 'Please enter a valid email' : '';
+    return fullName.hasError('fullName') ? 'Please enter a valid full name' : '';
+  }
+
+  public getRegisterUsernameErrorMessage() {
+    let username = this.registerForm.get('username');
+    if (username.hasError('required')) {
+      return 'Please enter your username';
+    }
+
+    return username.hasError('username') ? 'Please enter a valid username' : '';
   }
 
   public getRegisterEmailErrorMessage() {
@@ -75,6 +115,17 @@ export class RegisterComponent extends BaseComponent {
     }
 
     return email.hasError('email') ? 'Please enter a valid email' : '';
+  }
+
+  public getSecurityKeyErrorMessage() {
+    if (this.showSecurityKeyForm) {
+      let securityKey = this.registerForm.get('securityKey');
+      if (securityKey.hasError('required')) {
+        return 'Please enter your security key';
+      }
+  
+      return securityKey.hasError('securityKey') ? 'Please enter a valid security key' : '';
+    }
   }
 
   public getPasswordErrorMessage() {

@@ -85,6 +85,27 @@ app-login {
     }
 }
 
+// RADIO BUTTONS
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: rgb(46 104 179);
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+    background-color: rgb(46 104 179);
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-persistent-ripple {
+    background-color: rgb(46 104 179);
+}
+
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+    background-color: rgb(46 104 179);
+}
+
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple) {
+    background-color: rgb(46 104 179);
+}
+
 // PROGRESS SPINNER
 .mat-progress-spinner circle,
 .mat-spinner circle {

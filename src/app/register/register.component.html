@@ -15,6 +15,14 @@
           <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
             <div class="mb-3">
               <mat-form-field class="w-100">
+                <mat-label>Full name</mat-label>
+                <input type="fullName" matInput formControlName="fullName" required>
+                <mat-error>{{getRegisterFullNameErrorMessage()}}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="mb-3">
+              <mat-form-field class="w-100">
                 <mat-label>Username</mat-label>
                 <input type="username" matInput formControlName="username" required>
                 <mat-error>{{getRegisterUsernameErrorMessage()}}</mat-error>
@@ -45,6 +53,32 @@
                   <input [type]="hideRegisterRepeatPassword ? 'password' : 'text'" matInput formControlName="repeatPassword" required>
                   <mat-icon class="password-hide-icon  pointer unselectable" matSuffix (click)="hideRegisterRepeatPassword = !hideRegisterRepeatPassword">{{hideRegisterRepeatPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
                   <mat-error>{{getRepeatPasswordErrorMessage()}}</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <div class="mb-2 grey-color">Register as a:</div>
+              <mat-radio-group (change)="onRadioChange($event)" formControlName="role">
+                <mat-radio-button class="mr-5" value="client" [checked]=true>
+                  Client
+                </mat-radio-button>
+                <mat-radio-button class="mr-5" value="courier">
+                  Courier
+                </mat-radio-button>
+                <mat-radio-button value="officeWorker">
+                  Office worker
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+            <div *ngIf="showSecurityKeyForm" class="mb-3">
+              <div class="mb-3">
+                <mat-form-field class="w-100">
+                  <mat-label>Security Key</mat-label>
+                  <input matInput [type]="hideSecurityKey ? 'password' : 'text'" formControlName="securityKey">
+                  <mat-icon class="password-hide-icon pointer unselectable" matSuffix (click)="hideSecurityKey = !hideSecurityKey">{{hideSecurityKey ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  <mat-error>{{getSecurityKeyErrorMessage()}}</mat-error>
                 </mat-form-field>
               </div>
             </div>
