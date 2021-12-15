@@ -1,5 +1,4 @@
 <div class="row justify-content-center no-gutters h-100 w-100">
-  <!-- <div class="d-none d-xl-block col-xl-7 login-background"></div> -->
   <div class="col-12 col-xl-5">
     <div class="row h-100 m-0 justify-content-center align-items-center">
       <div class="col mb-4">
@@ -16,9 +15,9 @@
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <div class="mb-3">
             <mat-form-field class="w-100">
-              <mat-label>Email Address</mat-label>
-              <input type="email" matInput formControlName="email">
-              <mat-error>{{getLoginEmailErrorMessage()}}</mat-error>
+              <mat-label>Username</mat-label>
+              <input type="username" matInput formControlName="username">
+              <mat-error>{{getLoginUsernameErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
 
@@ -27,7 +26,6 @@
               <mat-label>Password</mat-label>
               <input matInput [type]="hideLoginPassword ? 'password' : 'text'" formControlName="password">
               <mat-icon class="password-hide-icon pointer unselectable" matSuffix (click)="hideLoginPassword = !hideLoginPassword">{{hideLoginPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-              <!-- <mat-hint *ngIf="!this.loginForm.get('password').value" class="font-metropolis-regular">Password must contain at least 8 characters</mat-hint> -->
               <mat-error>{{getLoginPasswordErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
@@ -37,7 +35,7 @@
           </button>
 
           <div *ngIf="(authError$ | async)" class="w-100 lg-spaced-text font-metropolis-medium login-error-wrapper p-2 d-flex justify-content-center align-items-center mt-4">
-            Incorrect Email Address and/or Password!
+            Incorrect Username Address and/or Password!
           </div>
         </form>
       </div>

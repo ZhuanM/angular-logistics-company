@@ -22,8 +22,7 @@ export class LoginComponent extends BaseComponent {
   public hideLoginPassword: boolean = true;
 
   public loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
-    // Validators.minLength(8), Validators.pattern("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[~{}()|_^<>=\\-+:;,\\./[\\]\\`@$!%*#?&])[A-Za-z\\d~{}()|_^<>=\\-+:;,\\./[\\]\\`@$!%*#?&]{8,}$" for password when all newly registered accounts have this password pattern
+    username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required])
   });
 
@@ -38,7 +37,7 @@ export class LoginComponent extends BaseComponent {
       this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(AuthActions.login(
         {
-          email: this.loginForm.get('email').value,
+          username: this.loginForm.get('username').value,
           password: this.loginForm.get('password').value
         }
       ));
@@ -48,13 +47,13 @@ export class LoginComponent extends BaseComponent {
   }
   
   // ERRORS
-  public getLoginEmailErrorMessage() {
-    let email = this.loginForm.get('email');
-    if (email.hasError('required')) {
-      return 'Please enter your email';
+  public getLoginUsernameErrorMessage() {
+    let username = this.loginForm.get('username');
+    if (username.hasError('required')) {
+      return 'Please enter your username';
     }
 
-    return email.hasError('email') ? 'Please enter a valid email' : '';
+    return username.hasError('username') ? 'Please enter a valid username' : '';
   }
 
   public getLoginPasswordErrorMessage() {

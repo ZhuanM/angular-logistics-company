@@ -15,7 +15,7 @@ export class AuthEffects {
   this.actions$.pipe(
     ofType(AuthActions.login),
     switchMap(action => {
-      return this.authService.login(action.email, action.password)
+      return this.authService.login(action.username, action.password)
         .pipe(
           tap(() => this.router.navigate(['/home'])),
           map(response => {
@@ -29,7 +29,7 @@ export class AuthEffects {
           }),
           catchError((errorRes: HttpErrorResponse) => {
             return of(AuthActions.authFail(
-              { errorMessage: errorRes.error ? (errorRes.error.errors ? errorRes.error.errors.Email : errorRes.error.Messages[0]) : 'Invalid email and/or password' }
+              { errorMessage: errorRes.error ? (errorRes.error.errors ? errorRes.error.errors.Username : errorRes.error.Messages[0]) : 'Invalid username and/or password' }
             ));
           })
         );

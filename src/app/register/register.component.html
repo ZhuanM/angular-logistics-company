@@ -1,0 +1,63 @@
+<div class="row justify-content-center no-gutters h-100 w-100">
+    <div class="col-12 col-xl-5">
+      <div class="row h-100 m-0 justify-content-center align-items-center">
+        <div class="col mb-4">
+          <div class="d-flex justify-content-center unselectable mb-4">
+            <img class="register-logo" src="../../assets/logo/logo_transparent-black.png" alt="NBU Logistics Logo">
+          </div>
+          <div class="fs-48 main-title-text mb-3 font-metropolis-semi-bold">
+            Register
+          </div>
+          <div class="fs-16 under-main-text sm-spaced-text mb-5">
+            Regster your account
+          </div>
+  
+          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <mat-form-field class="w-100">
+                <mat-label>Username</mat-label>
+                <input type="username" matInput formControlName="username" required>
+                <mat-error>{{getRegisterUsernameErrorMessage()}}</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="mb-3">
+              <mat-form-field class="w-100">
+                <mat-label>Email Address</mat-label>
+                <input type="email" matInput formControlName="email" required>
+                <mat-error>{{getRegisterEmailErrorMessage()}}</mat-error>
+              </mat-form-field>
+            </div>
+  
+            <div formGroupName="passwords">
+              <div class="mb-3">
+                <mat-form-field class="w-100">
+                  <mat-label>Password</mat-label>
+                  <input matInput [type]="hideRegisterPassword ? 'password' : 'text'" formControlName="password" required>
+                  <mat-icon class="password-hide-icon pointer unselectable" matSuffix (click)="hideRegisterPassword = !hideRegisterPassword">{{hideRegisterPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  <mat-error>{{getPasswordErrorMessage()}}</mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="mb-3">
+                <mat-form-field class="w-100">
+                  <mat-label>Repeat password</mat-label>
+                  <input [type]="hideRegisterRepeatPassword ? 'password' : 'text'" matInput formControlName="repeatPassword" required>
+                  <mat-icon class="password-hide-icon  pointer unselectable" matSuffix (click)="hideRegisterRepeatPassword = !hideRegisterRepeatPassword">{{hideRegisterRepeatPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  <mat-error>{{getRepeatPasswordErrorMessage()}}</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+  
+            <button mat-raised-button class="w-100 red-button white-color text-uppercase lg-spaced-text register-button-text font-metropolis-medium" [disabled]="!registerForm.valid" type="submit">
+              Register
+            </button>
+  
+            <!-- <div *ngIf="(authError$ | async)" class="w-100 lg-spaced-text font-metropolis-medium register-error-wrapper p-2 d-flex justify-content-center align-items-center mt-4">
+              Incorrect Email Address and/or Password!
+            </div> -->
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
