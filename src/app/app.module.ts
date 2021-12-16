@@ -57,6 +57,7 @@ import { RegisterComponent } from "./register/register.component";
 import * as fromApp from './app-reducer';
 import { AuthEffects } from "./auth/store/auth.effects";
 import { HeaderEffects } from "./header/store/header.effects";
+import { GoogleMapsModule } from "@angular/google-maps";
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'fill'
@@ -122,6 +123,8 @@ const appearance: MatFormFieldDefaultOptions = {
     MatDialogModule,
     MatSnackBarModule,
     MatTooltipModule,
+    // GOOGLE MAPS
+    GoogleMapsModule,
   ],
   providers: [
     { 
