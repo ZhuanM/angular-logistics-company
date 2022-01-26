@@ -58,6 +58,11 @@ import * as fromApp from './app-reducer';
 import { AuthEffects } from "./auth/store/auth.effects";
 import { HeaderEffects } from "./header/store/header.effects";
 import { GoogleMapsModule } from "@angular/google-maps";
+import { PackagesComponent } from "./packages/packages.component";
+import { SendPackageComponent } from "./send-package/send-package.component";
+import { CompanyComponent } from "./company/company.component";
+import { EmployeesComponent } from "./employees/employees.component";
+import { CustomersComponent } from "./customers/customers.component";
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'fill'
@@ -71,6 +76,11 @@ const appearance: MatFormFieldDefaultOptions = {
     HomeComponent,
     FooterComponent,
     RegisterComponent,
+    PackagesComponent,
+    SendPackageComponent,
+    CompanyComponent,
+    EmployeesComponent,
+    CustomersComponent,
   ],
   imports: [
     BrowserModule,
