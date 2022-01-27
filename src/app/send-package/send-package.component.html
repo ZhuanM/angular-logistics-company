@@ -1,0 +1,99 @@
+<div class="row justify-content-center no-gutters h-100 w-100">
+    <div class="col-12 col-xl-5">
+        <div class="row h-100 m-0 justify-content-center align-items-center">
+            <div class="col mb-4">
+                <div class="d-flex justify-content-center unselectable mb-4">
+                    <img class="login-logo" src="../../assets/logo/logo_transparent-black.png" alt="NBU Logistics Logo">
+                </div>
+                <div class="fs-48 main-title-text mb-3 font-metropolis-semi-bold">
+                    Send Package
+                </div>
+                <div class="fs-16 under-main-text sm-spaced-text mb-5">
+                    Send your package
+                </div>
+
+                <form [formGroup]="sendPackageForm" (ngSubmit)="onSubmit()">
+                    <div class="mb-3">
+                        <mat-form-field class="w-100">
+                            <mat-label>Name</mat-label>
+                            <input matInput type="text" formControlName="name" required>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="mb-3">
+                        <mat-form-field class="w-100">
+                            <mat-label>Sender</mat-label>
+                            <input matInput type="text" formControlName="sender" required>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="mb-3">
+                        <mat-form-field class="w-100">
+                            <mat-label>Recipient</mat-label>
+                            <input matInput type="text" formControlName="recipient" required>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="mb-3">
+                        <mat-form-field class="w-100">
+                            <mat-label>Registered By</mat-label>
+                            <input matInput type="text" formControlName="registeredBy" required>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="mb-3">
+                        <mat-form-field class="w-100">
+                            <mat-label>Recipient Address</mat-label>
+                            <input matInput type="text" formControlName="recipientAddress" required>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="mb-3">
+                        <mat-form-field class="w-100">
+                            <mat-label>Sent Date</mat-label>
+                            <input matInput type="text" formControlName="sentDate" required>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="mb-3">
+                        <mat-form-field class="w-100">
+                            <mat-label>Expected Delivery Date</mat-label>
+                            <input matInput type="text" formControlName="expectedDate" required>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="mb-3">
+                        <mat-form-field class="w-100">
+                            <mat-label>Weight</mat-label>
+                            <input matInput type="text" formControlName="weight" required>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="mb-3">
+                        <mat-form-field class="w-100">
+                            <mat-label>Price</mat-label>
+                            <input matInput type="text" formControlName="price" required>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="mb-3">
+                        <mat-form-field class="w-100">
+                            <mat-label>Status</mat-label>
+                            <mat-select formControlName="status" required>
+                                <mat-option *ngFor="let status of statusOptions" [value]="status.value">
+                                    {{ status.viewValue }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <button mat-raised-button
+                        class="w-100 blue-nbu-button white-color text-uppercase lg-spaced-text send-button-text font-metropolis-medium"
+                        [disabled]="!sendPackageForm.valid" type="submit">
+                        Send
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

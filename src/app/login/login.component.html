@@ -16,7 +16,7 @@
           <div class="mb-3">
             <mat-form-field class="w-100">
               <mat-label>Username</mat-label>
-              <input type="username" matInput formControlName="username">
+              <input type="username" matInput formControlName="username" required>
               <mat-error>{{getLoginUsernameErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
@@ -24,13 +24,13 @@
           <div class="mb-3">
             <mat-form-field class="w-100">
               <mat-label>Password</mat-label>
-              <input matInput [type]="hideLoginPassword ? 'password' : 'text'" formControlName="password">
+              <input matInput [type]="hideLoginPassword ? 'password' : 'text'" formControlName="password" required>
               <mat-icon class="password-hide-icon pointer unselectable" matSuffix (click)="hideLoginPassword = !hideLoginPassword">{{hideLoginPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
               <mat-error>{{getLoginPasswordErrorMessage()}}</mat-error>
             </mat-form-field>
           </div>
 
-          <button mat-raised-button class="w-100 red-button white-color text-uppercase lg-spaced-text login-button-text font-metropolis-medium" [disabled]="!loginForm.valid" type="submit">
+          <button mat-raised-button class="w-100 blue-nbu-button white-color text-uppercase lg-spaced-text login-button-text font-metropolis-medium" [disabled]="!loginForm.valid" type="submit">
             Login
           </button>
 
