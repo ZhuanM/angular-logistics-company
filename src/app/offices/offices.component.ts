@@ -15,12 +15,11 @@ export class OfficesComponent extends BaseComponent {
   public data: Object[];
   public editSettings: Object;
   public toolbar: string[];
-  public orderIDRules: Object;
-  public customerIDRules: Object;
-  public freightRules: Object;
+  public idRules: Object;
+  public nameRules: Object;
+  public addressRules: Object;
   public editParams: Object;
   public pageSettings: Object;
-  public formatOptions: Object;
 
   constructor(private store: Store<AppState>) { 
     super();
@@ -30,12 +29,11 @@ export class OfficesComponent extends BaseComponent {
     this.data = orderDataSource;
     this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true, newRowPosition: 'Top' };
     this.toolbar = ['Add', 'Edit', 'Delete', 'Update', 'Cancel'];
-    this.orderIDRules = { required: true, number: true };
-    this.customerIDRules = { required: true };
-    this.freightRules = { required: true };
+    this.idRules = { required: true, number: true };
+    this.nameRules = { required: true };
+    this.addressRules = { required: true };
     this.editParams = { params: { popupHeight: '300px' } };
     this.pageSettings = { pageCount: 10 };
-    this.formatOptions = { type: 'dateTime', format: 'd/M/y hh:mm a' }
   }
 
   actionBegin(args: any): void {

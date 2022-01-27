@@ -15,9 +15,18 @@ export class PackagesComponent extends BaseComponent {
   public data: Object[];
   public editSettings: Object;
   public toolbar: string[];
-  public orderIDRules: Object;
-  public customerIDRules: Object;
-  public freightRules: Object;
+
+  public idRules: Object;
+  public nameRules: Object;
+  public senderRules: Object;
+  public recipientRules: Object;
+  public sentDateRules: Object;
+  public expectedDeliveryRules: Object;
+  public statusRules: Object;
+  public deliveryAddressRules: Object;
+  public priceRules: Object;
+  public weightRules: Object;
+  public registeredByRules: Object;
   public editParams: Object;
   public pageSettings: Object;
   public formatOptions: Object;
@@ -30,9 +39,17 @@ export class PackagesComponent extends BaseComponent {
     this.data = orderDataSource;
     this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true, newRowPosition: 'Top' };
     this.toolbar = ['Add', 'Edit', 'Delete', 'Update', 'Cancel'];
-    this.orderIDRules = { required: true, number: true };
-    this.customerIDRules = { required: true };
-    this.freightRules = { required: true };
+    this.idRules = { required: true, number: true };
+    this.nameRules = { required: true };
+    this.senderRules = { required: true };
+    this.recipientRules = { required: true };
+    this.sentDateRules = { required: true };
+    this.expectedDeliveryRules = { required: true };
+    this.statusRules = { required: true };
+    this.deliveryAddressRules = { required: true };
+    this.priceRules = { required: true, number: true };
+    this.weightRules = { required: true, number: true };
+    this.registeredByRules = { required: true };
     this.editParams = { params: { popupHeight: '300px' } };
     this.pageSettings = { pageCount: 10 };
     this.formatOptions = { type: 'dateTime', format: 'd/M/y hh:mm a' }

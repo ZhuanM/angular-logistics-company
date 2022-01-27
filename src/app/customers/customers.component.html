@@ -6,11 +6,10 @@
         <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' allowSorting='true' allowFiltering='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar'
          (actionBegin)='actionBegin($event)'>
             <e-columns>
-                <e-column field='OrderID' headerText='Order ID' width='150' textAlign='center' isPrimaryKey='true' [validationRules]='orderIDRules'></e-column>
-                <e-column field='CustomerID' headerText='Customer ID' width='150' textAlign='center' [validationRules]='customerIDRules'></e-column>
-                <e-column field='Freight' headerText='Freight' width='150' format='C2' textAlign='center' editType='numericedit' [validationRules]='freightRules'></e-column>
-                <e-column field='OrderDate' headerText='Order Date' width='150' editType='datetimepickeredit' [format]='formatOptions' textAlign='center'></e-column>
-                <e-column field='ShipCountry' headerText='Ship Country' width='150' textAlign='center' editType='dropdownedit' [edit]='editParams'></e-column>
+                <e-column field='ID' allowEditing='false' headerText='ID' width='150' textAlign='center' isPrimaryKey='true' [validationRules]='idRules'></e-column>
+                <e-column field='Username' headerText='Username' width='150' textAlign='center' [validationRules]='usernameRules'></e-column>
+                <e-column field='E-mail' headerText='E-mail' width='150' textAlign='center' [validationRules]='emailRules'></e-column>
+                <e-column field='Full Name' headerText='Full Name' width='150' textAlign='center' [validationRules]='fullNameRules'></e-column>
             </e-columns>
         </ejs-grid>
     </div>

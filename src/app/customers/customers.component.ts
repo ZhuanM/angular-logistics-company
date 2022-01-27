@@ -15,12 +15,12 @@ export class CustomersComponent extends BaseComponent {
   public data: Object[];
   public editSettings: Object;
   public toolbar: string[];
-  public orderIDRules: Object;
-  public customerIDRules: Object;
-  public freightRules: Object;
+  public idRules: Object;
+  public usernameRules: Object;
+  public emailRules: Object;
+  public fullNameRules: Object;
   public editParams: Object;
   public pageSettings: Object;
-  public formatOptions: Object;
 
   constructor(private store: Store<AppState>) {
     super();
@@ -28,14 +28,15 @@ export class CustomersComponent extends BaseComponent {
 
   public ngOnInit(): void {
     this.data = orderDataSource;
+    console.log(this.data);
     this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true, newRowPosition: 'Top' };
     this.toolbar = ['Add', 'Edit', 'Delete', 'Update', 'Cancel'];
-    this.orderIDRules = { required: true, number: true };
-    this.customerIDRules = { required: true };
-    this.freightRules = { required: true };
+    this.idRules = { required: true, number: true };
+    this.usernameRules = { required: true };
+    this.emailRules = { required: true };
+    this.fullNameRules = { required: true };
     this.editParams = { params: { popupHeight: '300px' } };
     this.pageSettings = { pageCount: 10 };
-    this.formatOptions = { type: 'dateTime', format: 'd/M/y hh:mm a' }
   }
 
   actionBegin(args: any): void {
