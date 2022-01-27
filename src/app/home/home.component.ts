@@ -10,6 +10,6 @@ import { BaseComponent } from '../shared/base.component';
 })
 export class HomeComponent extends BaseComponent {
   constructor(private store: Store<AppState>) { 
-    super()
+    super();
   }
 }

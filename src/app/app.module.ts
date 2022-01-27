@@ -63,6 +63,10 @@ import { SendPackageComponent } from "./send-package/send-package.component";
 import { CompanyComponent } from "./company/company.component";
 import { EmployeesComponent } from "./employees/employees.component";
 import { CustomersComponent } from "./customers/customers.component";
+import { Ng2SmartTableModule } from "ng2-smart-table";
+import { Ng2CompleterModule } from "ng2-completer";
+import { GridModule } from '@syncfusion/ej2-angular-grids';
+import { DropDownListModule } from "@syncfusion/ej2-angular-dropdowns";
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'fill'
@@ -135,6 +139,12 @@ const appearance: MatFormFieldDefaultOptions = {
     MatTooltipModule,
     // GOOGLE MAPS
     GoogleMapsModule,
+    // Ng2 Smart Table
+    Ng2SmartTableModule,
+    Ng2CompleterModule,
+    // EJ2 Syncfusion Data Table
+    GridModule,
+    DropDownListModule,
   ],
   providers: [
     { 

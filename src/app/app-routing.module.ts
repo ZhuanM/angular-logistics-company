@@ -13,14 +13,19 @@ import { SendPackageComponent } from './send-package/send-package.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
-  { path: 'login', component: LoginComponent, canActivate: [ AutoLoginGuard ] },
-  { path: 'register', component: RegisterComponent, canActivate: [AutoLoginGuard] },
   { path: 'home', component: HomeComponent },
-  { path: 'packages', component: PackagesComponent, canActivate: [AuthGuard] },
-  { path: 'send_package', component: SendPackageComponent, canActivate: [AuthGuard] },
-  { path: 'company', component: CompanyComponent, canActivate: [AuthGuard] },
-  { path: 'employees', component: EmployeesComponent, canActivate: [AuthGuard] },
-  { path: 'customers', component: CustomersComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent, canActivate: [ AutoLoginGuard ] },
+  { path: 'register', component: RegisterComponent, canActivate: [ AutoLoginGuard ] },
+  // TODO ADD , canActivate: [ AuthGuard ] after testing
+  { path: 'packages', component: PackagesComponent },
+  // TODO ADD , canActivate: [ AuthGuard, WorkerGuard ] after testing
+  { path: 'send_package', component: SendPackageComponent },
+  // TODO ADD , canActivate: [ AuthGuard, AdminGuard ] after testing
+  { path: 'company', component: CompanyComponent },
+  // TODO ADD , canActivate: [ AuthGuard, AdminGuard ] after testing
+  { path: 'employees', component: EmployeesComponent },
+  // TODO ADD , canActivate: [ AuthGuard, AdminGuard ] after testing
+  { path: 'customers', component: CustomersComponent },
 ];
 
 @NgModule({
