@@ -3,7 +3,7 @@
 </div>
 <div class="row justify-content-center align-items-center">
     <div class="col p-0">
-        <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar'
+        <ejs-grid #normalgrid id='Normalgrid' [dataSource]='data' allowPaging='true' allowSorting='true' allowFiltering='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar'
          (actionBegin)='actionBegin($event)'>
             <e-columns>
                 <e-column field='OrderID' headerText='Order ID' width='150' textAlign='center' isPrimaryKey='true' [validationRules]='orderIDRules'></e-column>

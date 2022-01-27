@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../models/app-state.interface';
 import { BaseComponent } from '../shared/base.component';
-import { EditService, ToolbarService, PageService } from '@syncfusion/ej2-angular-grids';
+import { EditService, ToolbarService, PageService, SortService, FilterService } from '@syncfusion/ej2-angular-grids';
 import { orderDataSource } from './data';
 
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
   styleUrls: ['./employees.component.scss'],
-  providers: [ToolbarService, EditService, PageService]
+  providers: [ToolbarService, EditService, PageService, SortService, FilterService]
 })
 export class EmployeesComponent extends BaseComponent {
   public data: Object[];
@@ -21,6 +21,7 @@ export class EmployeesComponent extends BaseComponent {
   public editParams: Object;
   public pageSettings: Object;
   public formatOptions: Object;
+  // public initialSort: Object;
 
   constructor(private store: Store<AppState>) { 
     super();

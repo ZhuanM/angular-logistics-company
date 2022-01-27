@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../models/app-state.interface';
 import { BaseComponent } from '../shared/base.component';
-import { EditService, ToolbarService, PageService } from '@syncfusion/ej2-angular-grids';
+import { EditService, ToolbarService, PageService, FilterService, SortService } from '@syncfusion/ej2-angular-grids';
 import { orderDataSource } from './data';
 
 @Component({
   selector: 'app-customers',
   templateUrl: './customers.component.html',
   styleUrls: ['./customers.component.scss'],
-  providers: [ToolbarService, EditService, PageService]
+  providers: [ToolbarService, EditService, PageService, SortService, FilterService]
 })
 export class CustomersComponent extends BaseComponent {
   public data: Object[];
