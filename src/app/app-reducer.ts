@@ -9,6 +9,7 @@ import * as fromSendPackage from './send-package/store/send-package.reducer';
 import * as fromCompany from './company/store/company.reducer';
 import * as fromEmployees from './employees/store/employees.reducer';
 import * as fromCustomers from './customers/store/customers.reducer';
+import * as fromOffices from './offices/store/offices.reducer';
 
 export const appReducer: ActionReducerMap<AppState> = {
   auth: fromAuth.authReducer,
@@ -20,4 +21,5 @@ export const appReducer: ActionReducerMap<AppState> = {
   company: fromCompany.companyReducer,
   employees: fromEmployees.employeesReducer,
   customers: fromCustomers.customersReducer,
+  offices: fromOffices.officesReducer,
 };

@@ -32,6 +32,7 @@ export class AppComponent extends BaseComponent {
   private companyURL: boolean = false;
   private employeesURL: boolean = false;
   private customersURL: boolean = false;
+  private officesURL: boolean = false;
 
   private role: string = "logged office-worker";
 
@@ -115,6 +116,7 @@ export class AppComponent extends BaseComponent {
       this.companyURL = false;
       this.employeesURL = false;
       this.customersURL = false;
+      this.officesURL = false;
 
       this.sideNavItems = [
         {
@@ -146,6 +148,11 @@ export class AppComponent extends BaseComponent {
           icon: "group",
           text: "Customers",
           clicked: this.customersURL
+        },
+        {
+          icon: "store",
+          text: "Offices",
+          clicked: this.officesURL
         },
       ];
     }
@@ -245,6 +252,7 @@ export class AppComponent extends BaseComponent {
         this.companyURL = false;
         this.employeesURL = false;
         this.customersURL = false;
+        this.officesURL = false;
       } else if (this.location.path() == "/packages") {
         this.packagesURL = true;
         this.homeURL = false;
@@ -252,6 +260,7 @@ export class AppComponent extends BaseComponent {
         this.companyURL = false;
         this.employeesURL = false;
         this.customersURL = false;
+        this.officesURL = false;
       } else if (this.location.path() == "/send_package") {
         this.sendPackageURL = true;
         this.homeURL = false;
@@ -259,6 +268,7 @@ export class AppComponent extends BaseComponent {
         this.companyURL = false;
         this.employeesURL = false;
         this.customersURL = false;
+        this.officesURL = false;
       } else if (this.location.path() == "/company") {
         this.companyURL = true;
         this.sendPackageURL = false;
@@ -266,6 +276,7 @@ export class AppComponent extends BaseComponent {
         this.packagesURL = false;
         this.employeesURL = false;
         this.customersURL = false;
+        this.officesURL = false;
       } else if (this.location.path() == "/employees") {
         this.employeesURL = true;
         this.companyURL = false;
@@ -273,8 +284,18 @@ export class AppComponent extends BaseComponent {
         this.homeURL = false;
         this.packagesURL = false;
         this.customersURL = false;
+        this.officesURL = false;
       } else if (this.location.path() == "/customers") {
         this.customersURL = true;
+        this.employeesURL = false;
+        this.companyURL = false;
+        this.sendPackageURL = false;
+        this.homeURL = false;
+        this.packagesURL = false;
+        this.officesURL = false;
+      } else if (this.location.path() == "/offices") {
+        this.officesURL = true;
+        this.customersURL = false;
         this.employeesURL = false;
         this.companyURL = false;
         this.sendPackageURL = false;
@@ -312,6 +333,11 @@ export class AppComponent extends BaseComponent {
           icon: "group",
           text: "Customers",
           clicked: this.customersURL
+        },
+        {
+          icon: "store",
+          text: "Offices",
+          clicked: this.officesURL
         },
       ];
     }
@@ -514,6 +540,19 @@ export class AppComponent extends BaseComponent {
             }
           } else {
             this.router.navigate(['customers']);
+            if (this.sidenav.mode == 'over') {
+              this.closeSidenav();
+            }
+          }
+          break;
+        case "Offices":
+          if (this.location.path() == "/offices") {
+            window.location.reload();
+            if (this.sidenav.mode == 'over') {
+              this.closeSidenav();
+            }
+          } else {
+            this.router.navigate(['offices']);
             if (this.sidenav.mode == 'over') {
               this.closeSidenav();
             }

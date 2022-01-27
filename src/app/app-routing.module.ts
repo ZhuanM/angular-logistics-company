@@ -7,6 +7,7 @@ import { CustomersComponent } from './customers/customers.component';
 import { EmployeesComponent } from './employees/employees.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { OfficesComponent } from './offices/offices.component';
 import { PackagesComponent } from './packages/packages.component';
 import { RegisterComponent } from './register/register.component';
 import { SendPackageComponent } from './send-package/send-package.component';
@@ -26,6 +27,8 @@ const routes: Routes = [
   { path: 'employees', component: EmployeesComponent },
   // TODO ADD , canActivate: [ AuthGuard, AdminGuard ] after testing
   { path: 'customers', component: CustomersComponent },
+  // TODO ADD , canActivate: [ AuthGuard, AdminGuard ] after testing
+  { path: 'offices', component: OfficesComponent },
 ];
 
 @NgModule({
