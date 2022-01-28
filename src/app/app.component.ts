@@ -34,7 +34,8 @@ export class AppComponent extends BaseComponent {
   private customersURL: boolean = false;
   private officesURL: boolean = false;
 
-  private role: string = "logged office-worker";
+  // private role: string = "logged office-worker";
+  private role: string = "non-logged user";
 
   constructor(
     private observer: BreakpointObserver,

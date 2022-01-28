@@ -160,6 +160,8 @@ const appearance: MatFormFieldDefaultOptions = {
       // TODO ADD INTERCEPTOR
       // useClass: AuthInterceptor,
       // multi: true
+      
+      // TODO ADD ALL GUARDS HERE
     }
   ],
   bootstrap: [AppComponent]
