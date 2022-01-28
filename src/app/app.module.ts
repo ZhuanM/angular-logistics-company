@@ -68,6 +68,7 @@ import { Ng2CompleterModule } from "ng2-completer";
 import { GridModule } from '@syncfusion/ej2-angular-grids';
 import { DropDownListModule } from "@syncfusion/ej2-angular-dropdowns";
 import { OfficesComponent } from "./offices/offices.component";
+import { NotFoundComponent } from "./not-found/not-found.component";
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'fill'
@@ -87,6 +88,7 @@ const appearance: MatFormFieldDefaultOptions = {
     EmployeesComponent,
     CustomersComponent,
     OfficesComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
