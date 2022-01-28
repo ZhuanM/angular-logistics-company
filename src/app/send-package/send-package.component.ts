@@ -25,8 +25,8 @@ export class SendPackageComponent extends BaseComponent {
   });
 
   public statusOptions: any[] = [
-    { value: 'inProgress', viewValue: 'In Progress' },
-    { value: 'sent', viewValue: 'Sent' },
+    { value: 'inOffice', viewValue: 'In Office' },
+    { value: 'inCourier', viewValue: 'In Courier' },
     { value: 'delivered', viewValue: 'Delivered' },
   ];
   

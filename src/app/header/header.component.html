@@ -8,7 +8,7 @@
     <img src="./../../assets/logo/logo_transparent.png" alt="NBU Logistics Logo">
   </div>
   <!-- TODO CHECK IF USER IS LOGGED IN IN ORDER TO SHOW LOG OUT FUNCTIONALITY -->
-  <div *ngIf="true" class="col h-100 d-flex justify-content-end align-items-center pl-0">
+  <div *ngIf="role != 'non-logged user'" class="col h-100 d-flex justify-content-end align-items-center pl-0">
     <div class="row h-100">
       <div class="col-auto white-color d-flex align-items-center pointer settings-icon d-flex align-items-center p-0 ml-4">
         <button mat-icon-button class="settings-button" [matMenuTriggerFor]="settings" [disableRipple]="true" aria-label="Settings">

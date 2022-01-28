@@ -19,6 +19,8 @@ import { Router } from '@angular/router';
 export class HeaderComponent extends BaseComponent {
   @Output() logoClicked = new EventEmitter<boolean>();
 
+  public role: string = "logged office-worker";
+
   readonly sidenavOpened$: Observable<boolean> = this.store.pipe(select(HeaderSelectors.sidenavOpened), takeUntil(this.destroyed$));
   
   public isMobile: boolean = false;
