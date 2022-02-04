@@ -4,8 +4,7 @@
 
 export const environment = {
   production: false,
-  // TOOD CHANGE URL
-  apiBaseUrl: 'https://nbu-logistics.bg/'
+  apiBaseUrl: 'http://localhost:8080/'
 };
 
 /*

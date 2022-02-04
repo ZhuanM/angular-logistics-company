@@ -13,8 +13,3 @@ export const isLoading = createSelector(
   authFeatureSelector,
   (state: State) => state.isLoading
 );
-
-export const tokenRefreshed = createSelector(
-  authFeatureSelector,
-  (state: State) => state.tokenRefreshed
-);

@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core'
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { apiUrls } from './../shared/api-urls';
-import { getAccessToken, getRefreshToken } from '../shared/utility';
-
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -14,28 +12,44 @@ export class AuthService {
     'Content-Type': 'application/json',
   })
 
-  login(email: string, password: string) {
-    // TODO
+  login(username: string, password: string) {
     return this.http.post<any>(
       apiUrls.loginUrl,
       {
-        "Email": email,
-        "Password": password
+        "username": username,
+        "password": password
       },
       { headers: this.authHeaders }
     )
   }
 
-  refreshToken() {
-    const accessToken = getAccessToken();
-    const refreshToken = getRefreshToken();
-
-    // TODO
+  register(
+    email: string,
+    password: string,
+    fullName: string,
+    role: string,
+    username: string
+    ) {
     return this.http.post<any>(
-      apiUrls.refreshTokenUrl,
+      apiUrls.registerUrl,
       {
-        "AccessToken": accessToken,
-        "RefreshToken": refreshToken
+        "email": email,
+        "fullName": fullName,
+        "password": password,
+        "role": role,
+        "username": username,
+      }
+    )
+  }
+
+  getUser(username: string) {
+    let params = new HttpParams();
+    params = params.append('username', username);
+    
+    return this.http.get<any>(
+      apiUrls.getUserUrl,
+      {
+        params: params
       }
     )
   }

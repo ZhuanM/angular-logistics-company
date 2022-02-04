@@ -3,18 +3,14 @@ import * as AuthActions from './auth.actions';
 
 export interface State {
   accessToken: string;
-  refreshToken: string;
   authError: string;
   isLoading: boolean;
-  tokenRefreshed: boolean;
 }
 
 export const initialState: State = {
   accessToken: null,
-  refreshToken: null,
   authError: null,
   isLoading: false,
-  tokenRefreshed: false
 }
 
 const _authReducer = createReducer(
@@ -31,33 +27,12 @@ const _authReducer = createReducer(
   ),
 
   on(
-    AuthActions.refreshTokenSuccess,
-    (state, action) => ({
-      ...state,
-      authError: null,
-      isLoading: false,
-      accessToken: action.accessToken,
-      refreshToken: action.refreshToken,
-      tokenRefreshed: true
-    })
-  ),
-
-  on(
-    AuthActions.resetRefreshToken,
-    (state) => ({
-      ...state,
-      tokenRefreshed: false
-    })
-  ),
-
-  on(
     AuthActions.authSuccess,
     (state, action) => ({
       ...state,
       authError: null,
       isLoading: false,
       accessToken: action.accessToken,
-      refreshToken: action.refreshToken
     })
   ),
 
@@ -66,7 +41,6 @@ const _authReducer = createReducer(
     (state, action) => ({
       ...state,
       accessToken: null,
-      refreshToken: null,
       authError: action.errorMessage,
       isLoading: false,
     })
@@ -77,19 +51,10 @@ const _authReducer = createReducer(
     (state) => ({
       ...state,
       accessToken: null,
-      refreshToken: null,
       authError: null,
       isLoading: false
     })
   ),
-
-  on(
-    AuthActions.resetErrorState,
-    (state) => ({
-      ...state,
-      authError: null
-    })
-  )
 );
 
 export function authReducer(state: State, action: Action) {

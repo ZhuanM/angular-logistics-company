@@ -69,6 +69,7 @@ import { GridModule } from '@syncfusion/ej2-angular-grids';
 import { DropDownListModule } from "@syncfusion/ej2-angular-dropdowns";
 import { OfficesComponent } from "./offices/offices.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
+import { AuthInterceptor } from "./auth/auth.interceptor";
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'fill'
@@ -152,16 +153,13 @@ const appearance: MatFormFieldDefaultOptions = {
   ],
   providers: [
     { 
-      provide: [ 
-        MAT_FORM_FIELD_DEFAULT_OPTIONS,
-        HTTP_INTERCEPTORS
-      ],
+      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: appearance,
-      // TODO ADD INTERCEPTOR
-      // useClass: AuthInterceptor,
-      // multi: true
-      
-      // TODO ADD ALL GUARDS HERE
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
     }
   ],
   bootstrap: [AppComponent]

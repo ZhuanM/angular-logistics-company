@@ -12,16 +12,10 @@ export const register = createAction(
   '[Auth Component] Register',
   props<{
     email: string,
-    password: string
-    firstName: string,
-    lastName: string,
-    company: string,
-    address: string,
-    city: string,
-    postCode: string,
-    trial: boolean,
-    termsAndConditions: boolean,
-    privacyPolicy: boolean
+    password: string,
+    fullName: string,
+    role: string,
+    username: string
   }>()
 );
 
@@ -29,7 +23,7 @@ export const authSuccess = createAction(
   '[Auth Component] Auth Success',
   props<{
     accessToken: string,
-    refreshToken: string
+    username: string
   }>()
 );
 
@@ -37,6 +31,20 @@ export const authFail = createAction(
   '[Auth Component] Auth Fail',
   props<{
     errorMessage: string
+  }>()
+);
+
+export const getUser = createAction(
+  '[Auth Component] Get User',
+  props<{
+    username: string
+  }>()
+);
+
+export const getUserSuccess = createAction(
+  '[Auth Component] Get User Success',
+  props<{
+    user: any
   }>()
 );
 
@@ -50,27 +58,4 @@ export const logoutSuccess = createAction(
 
 export const resetErrorState = createAction(
   '[Auth Component] Reset Error State'
-);
-
-export const refreshToken = createAction(
-  '[Auth Component] Refresh Token'
-);
-
-export const refreshTokenSuccess = createAction(
-  '[Auth Component] Refresh Token Success',
-  props<{
-    accessToken: string,
-    refreshToken: string
-  }>()
-);
-
-export const refreshTokenFail = createAction(
-  '[Auth Component] Refresh Token Success',
-  props<{
-    errorMessage: string
-  }>()
-);
-
-export const resetRefreshToken = createAction(
-  '[Auth Component] Reset Refresh Token'
 );
