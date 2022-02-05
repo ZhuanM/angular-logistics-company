@@ -1,16 +1,21 @@
 import { createReducer, on, Action } from '@ngrx/store';
+import { User } from '../../shared/models/user.interface';
 import * as AuthActions from './auth.actions';
 
 export interface State {
   accessToken: string;
   authError: string;
   isLoading: boolean;
+  user: User;
+  userRole: string;
 }
 
 export const initialState: State = {
   accessToken: null,
   authError: null,
   isLoading: false,
+  user: null,
+  userRole: null,
 }
 
 const _authReducer = createReducer(
@@ -52,7 +57,19 @@ const _authReducer = createReducer(
       ...state,
       accessToken: null,
       authError: null,
-      isLoading: false
+      isLoading: false,
+      user: null,
+      userRole: null
+    })
+  ),
+
+  on(
+    AuthActions.getUserSuccess,
+    (state, action) => ({
+      ...state,
+      isLoading: false,
+      user: action.user,
+      userRole: action.userRole
     })
   ),
 );

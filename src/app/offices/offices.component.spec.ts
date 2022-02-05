@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { OfficesComponent } from './offices.component';
 
-describe('LoaderComponent', () => {
+describe('OfficesComponent', () => {
   let component: OfficesComponent;
   let fixture: ComponentFixture<OfficesComponent>;
 

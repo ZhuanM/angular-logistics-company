@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { PackagesComponent } from './packages.component';
 
-describe('LoaderComponent', () => {
+describe('PackagesComponent', () => {
   let component: PackagesComponent;
   let fixture: ComponentFixture<PackagesComponent>;
 

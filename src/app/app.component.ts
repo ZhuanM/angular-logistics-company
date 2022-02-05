@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import * as HeaderActions from './header/store/header.actions';
 import * as HeaderSelectors from './header/store/header.selectors';
+import { userRole } from './auth/store/auth.selectors';
 
 @Component({
   selector: 'app-root',
@@ -20,6 +21,7 @@ export class AppComponent extends BaseComponent {
   @ViewChild(MatSidenav) sidenav: MatSidenav;
 
   readonly sidenavOpened$: Observable<boolean> = this.store.pipe(select(HeaderSelectors.sidenavOpened), takeUntil(this.destroyed$));
+  readonly userRole$: Observable<string> = this.store.pipe(select(userRole), takeUntil(this.destroyed$));
 
   public sideNavItems: Array<any>;
 
@@ -34,8 +36,9 @@ export class AppComponent extends BaseComponent {
   private customersURL: boolean = false;
   private officesURL: boolean = false;
 
-  // private role: string = "logged office-worker";
-  private role: string = "non-logged user";
+  // private role: string = "ADMIN";
+  // private role: string = null;
+  private userRole: string;
 
   constructor(
     private observer: BreakpointObserver,
@@ -44,13 +47,16 @@ export class AppComponent extends BaseComponent {
     private location: Location
   ) {
     super();
-
-    this.updateSidenavItems();
+    
+    this.userRole$.pipe(takeUntil(this.destroyed$)).subscribe(userRole => {
+      this.userRole = userRole;
+      this.updateSidenavItems();
+    });
   }
 
   // THIS FUNCTION EXISTS BECAUSE this.location.path() doesn't return correct url when logging in and doesn't update accordingly the header and sidenav
   public toHome() {
-    if (this.role == "non-logged user") {
+    if (this.userRole == null) {
       this.homeURL = true;
       this.loginURL = false;
       this.registerURL = false;
@@ -72,7 +78,7 @@ export class AppComponent extends BaseComponent {
           clicked: this.registerURL
         },
       ];
-    } else if (this.role == "logged customer") {
+    } else if (this.userRole == "USER") {
       this.homeURL = true;
       this.packagesURL = false;
 
@@ -88,7 +94,7 @@ export class AppComponent extends BaseComponent {
           clicked: this.packagesURL
         },
       ];
-    } else if (this.role == "logged courier") {
+    } else if (this.userRole == "COURIER") {
       this.homeURL = true;
       this.packagesURL = false;
       this.sendPackageURL = false;
@@ -110,7 +116,7 @@ export class AppComponent extends BaseComponent {
           clicked: this.sendPackageURL
         },
       ];
-    } else if (this.role == "logged office-worker") {
+    } else if (this.userRole == "ADMIN") {
       this.homeURL = true;
       this.packagesURL = false;
       this.sendPackageURL = false;
@@ -160,7 +166,7 @@ export class AppComponent extends BaseComponent {
   }
 
   public updateSidenavItems() {
-    if (this.role == "non-logged user") {
+    if (this.userRole == null) {
       if (this.location.path() == "/home") {
         this.homeURL = true;
         this.loginURL = false;
@@ -192,7 +198,7 @@ export class AppComponent extends BaseComponent {
           clicked: this.registerURL
         },
       ];
-    } else if (this.role == "logged customer") {
+    } else if (this.userRole == "USER") {
       if (this.location.path() == "/home") {
         this.homeURL = true;
         this.packagesURL = false;
@@ -213,7 +219,7 @@ export class AppComponent extends BaseComponent {
           clicked: this.packagesURL
         },
       ];
-    } else if (this.role == "logged courier") {
+    } else if (this.userRole == "COURIER") {
       if (this.location.path() == "/home") {
         this.homeURL = true;
         this.packagesURL = false;
@@ -245,7 +251,7 @@ export class AppComponent extends BaseComponent {
           clicked: this.sendPackageURL
         },
       ];
-    } else if (this.role == "logged office-worker") {
+    } else if (this.userRole == "ADMIN") {
       if (this.location.path() == "/home") {
         this.homeURL = true;
         this.packagesURL = false;
@@ -353,7 +359,7 @@ export class AppComponent extends BaseComponent {
 
     this.sideNavItems[index].clicked = true;
 
-    if (this.role == "non-logged user") {
+    if (this.userRole == null) {
       switch (this.sideNavItems[index].text) {
         case "Home":
           if (this.location.path() == "/home") {
@@ -395,7 +401,7 @@ export class AppComponent extends BaseComponent {
           }
           break;
       }
-    } else if (this.role == "logged customer") {
+    } else if (this.userRole == "USER") {
       switch (this.sideNavItems[index].text) {
         case "Home":
           if (this.location.path() == "/home") {
@@ -424,7 +430,7 @@ export class AppComponent extends BaseComponent {
           }
           break;
       }
-    } else if (this.role == "logged courier") {
+    } else if (this.userRole == "COURIER") {
       switch (this.sideNavItems[index].text) {
         case "Home":
           if (this.location.path() == "/home") {
@@ -466,7 +472,7 @@ export class AppComponent extends BaseComponent {
           }
           break;
       }
-    } else if (this.role == "logged office-worker") {
+    } else if (this.userRole == "ADMIN") {
       switch (this.sideNavItems[index].text) {
         case "Home":
           if (this.location.path() == "/home") {

@@ -7,6 +7,7 @@ import * as AuthActions from './auth.actions';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Auth } from 'src/app/models/auth.interface';
+import { userRole } from './auth.selectors';
 
 
 @Injectable()
@@ -46,7 +47,8 @@ export class AuthEffects {
           map(response => {
             return AuthActions.getUserSuccess(
               {
-                user: response.user
+                user: response,
+                userRole: response.role
               }
             )
           })
@@ -58,7 +60,7 @@ export class AuthEffects {
   logout$ = createEffect(() =>
   this.actions$.pipe(
     ofType(AuthActions.logout),
-      tap(() => this.router.navigate(['/login'])),
+      tap(() => this.router.navigate(['/home'])),
       map(() => {
         sessionStorage.removeItem('access_token');
 

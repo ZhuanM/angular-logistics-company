@@ -10,6 +10,7 @@ import * as HeaderSelectors from '../header/store/header.selectors';
 import * as HeaderActions from '../header/store/header.actions';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
+import { userRole } from '../auth/store/auth.selectors';
 
 @Component({
   selector: 'app-header',
@@ -18,11 +19,11 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent extends BaseComponent {
   @Output() logoClicked = new EventEmitter<boolean>();
-
-  // public role: string = "logged office-worker";
-  public role: string = "non-logged user";
-
+  
   readonly sidenavOpened$: Observable<boolean> = this.store.pipe(select(HeaderSelectors.sidenavOpened), takeUntil(this.destroyed$));
+  readonly userRole$: Observable<string> = this.store.pipe(select(userRole), takeUntil(this.destroyed$));
+  
+  public userRole: string;
   
   public isMobile: boolean = false;
 
@@ -32,6 +33,9 @@ export class HeaderComponent extends BaseComponent {
     private router: Router,
   ) {
     super();
+    this.userRole$.pipe(takeUntil(this.destroyed$)).subscribe(userRole => {
+      this.userRole = userRole;
+    });
   }
 
   ngOnInit() {

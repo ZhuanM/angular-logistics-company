@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { SendPackageComponent } from './send-package.component';
 
-describe('LoaderComponent', () => {
+describe('SendPackageComponent', () => {
   let component: SendPackageComponent;
   let fixture: ComponentFixture<SendPackageComponent>;
 

@@ -70,6 +70,7 @@ import { DropDownListModule } from "@syncfusion/ej2-angular-dropdowns";
 import { OfficesComponent } from "./offices/offices.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { AuthInterceptor } from "./auth/auth.interceptor";
+import { LoaderComponent } from "./loader/loader.component";
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'fill'
@@ -90,6 +91,7 @@ const appearance: MatFormFieldDefaultOptions = {
     CustomersComponent,
     OfficesComponent,
     NotFoundComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
