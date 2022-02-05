@@ -17,10 +17,6 @@ import { MatRadioChange } from '@angular/material/radio';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent extends BaseComponent {
-  // @Output() login = new EventEmitter<boolean>();
-
-  // readonly authError$: Observable<string> = this.store.pipe(select(AuthSelectors.authError), takeUntil(this.destroyed$));
-
   public hideRegisterPassword: boolean = true;
   public hideRegisterRepeatPassword: boolean = true;
   
@@ -47,22 +43,21 @@ export class RegisterComponent extends BaseComponent {
   }
 
   ngOnInit() {
-    this.registerForm.get('role').setValue('client');
+    this.registerForm.get('role').setValue('USER');
   }
 
   public onSubmit() {
     if (this.registerForm.valid) {
       this.store.dispatch(appLoading({ loading: true }));
-      // this.store.dispatch(AuthActions.register(
-      //   {
-      //     fullName: this.registerForm.get('fullName').value,
-      //     username: this.registerForm.get('username').value,
-      //     email: this.registerForm.get('email').value,
-      //     password: this.registerForm.get('passwords')?.get('password').value,
-      //   }
-      // ));
-      
-      // this.login.emit(true);
+      this.store.dispatch(AuthActions.register(
+        {
+          fullName: this.registerForm.get('fullName').value,
+          username: this.registerForm.get('username').value,
+          email: this.registerForm.get('email').value,
+          password: this.registerForm.get('passwords')?.get('password').value,
+          role: this.registerForm.get('role').value
+        }
+      ));
     }
   }
 

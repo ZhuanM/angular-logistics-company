@@ -7,7 +7,6 @@ import * as AuthActions from './auth.actions';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Auth } from 'src/app/models/auth.interface';
-import { userRole } from './auth.selectors';
 
 
 @Injectable()

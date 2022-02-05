@@ -52,7 +52,7 @@ export class PackagesComponent extends BaseComponent {
     this.registeredByRules = { required: true };
     this.editParams = { params: { popupHeight: '300px' } };
     this.pageSettings = { pageCount: 10 };
-    this.formatOptions = { type: 'dateTime', format: 'd/M/y hh:mm a' }
+    this.formatOptions = { type: 'dateTime', format: 'd/M/y hh:mm a' };
   }
 
   actionBegin(args: any): void {

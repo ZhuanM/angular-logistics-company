@@ -60,13 +60,13 @@
             <div class="mb-4">
               <div class="mb-2 grey-color">Register as a:</div>
               <mat-radio-group (change)="onRadioChange($event)" formControlName="role">
-                <mat-radio-button class="mr-5" value="client" [checked]=true>
+                <mat-radio-button class="mr-5" value="USER" [checked]=true>
                   Client
                 </mat-radio-button>
-                <mat-radio-button class="mr-5" value="courier">
+                <mat-radio-button class="mr-5" value="COURIER">
                   Courier
                 </mat-radio-button>
-                <mat-radio-button value="officeWorker">
+                <mat-radio-button value="ADMIN">
                   Office worker
                 </mat-radio-button>
               </mat-radio-group>

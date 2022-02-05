@@ -1,4 +1,5 @@
-<div class="row mb-3 fs-28">
+<!-- WITH FAKE DATA -->
+<!-- <div class="row mb-3 fs-28">
     Offices:
 </div>
 <div class="row justify-content-center align-items-center">
@@ -9,6 +10,22 @@
                 <e-column field='ID' headerText='ID' allowEditing='false' width='150' textAlign='center' isPrimaryKey='true' [validationRules]='idRules'></e-column>
                 <e-column field='Name' headerText='Name' width='150' textAlign='center' [validationRules]='nameRules'></e-column>
                 <e-column field='Address' headerText='Address' allowEditing='false' isPrimaryKey='true' width='150' textAlign='center' [validationRules]='addressRules'></e-column>
+            </e-columns>
+        </ejs-grid>
+    </div>
+</div> -->
+
+<div class="row mb-3 fs-28">
+    Offices:
+</div>
+<div class="row justify-content-center align-items-center">
+    <div class="col p-0">
+        <ejs-grid #normalgrid id='Normalgrid' [dataSource]='offices' allowPaging='true' allowSorting='true' allowFiltering='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar'
+         (actionBegin)='actionBegin($event)'>
+            <e-columns>
+                <e-column field='id' headerText='ID' allowEditing='false' width='150' textAlign='center' isPrimaryKey='true' [validationRules]='idRules'></e-column>
+                <e-column field='name' headerText='Name' width='150' textAlign='center' [validationRules]='nameRules'></e-column>
+                <e-column field='address' headerText='Address' allowEditing='false' isPrimaryKey='true' width='150' textAlign='center' [validationRules]='addressRules'></e-column>
             </e-columns>
         </ejs-grid>
     </div>

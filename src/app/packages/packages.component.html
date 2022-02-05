@@ -10,6 +10,7 @@
                 <e-column field='Name' headerText='Name' width='150' textAlign='center' [validationRules]='nameRules'></e-column>
                 <e-column field='Sender' headerText='Sender' width='150' textAlign='center' [validationRules]='senderRules'></e-column>
                 <e-column field='Recipient' headerText='Recipient' width='150' textAlign='center' [validationRules]='recipientRules'></e-column>
+                <!-- TODO ADD "Company" COLUMN -->
                 <e-column field='Sent Date' headerText='Sent Date' width='150' textAlign='center' editType='datetimepickeredit' [format]='formatOptions' [validationRules]='sentDateRules'></e-column>
                 <e-column field='Expected Delivery' headerText='Expected Delivery' width='150' textAlign='center'  editType='datetimepickeredit' [format]='formatOptions' [validationRules]='expectedDeliveryRules'></e-column>
                 <e-column field='Status' headerText='Status' width='150' textAlign='center' editType='dropdownedit' [edit]='editParams' [validationRules]='statusRules'></e-column>
