@@ -68,21 +68,20 @@ export class OfficesComponent extends BaseComponent {
   }
 
   actionBegin(args: any): void {
-    // TODO TEST IF LOADER IS NEEDED
     if (args.action == "edit" && args.requestType == "save") {
       // UPDATE
       let data = args.data;
-      // this.store.dispatch(appLoading({ loading: true }));
+      this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(updateOffice({ office: data }));
     } else if (args.requestType == "delete") {
       // DELETE
       let officeId = args.data[0].id;
-      // this.store.dispatch(appLoading({ loading: true }));
+      this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(deleteOffice({ officeId: officeId }));
     } else if (args.action == "add" && args.requestType == "save") {
       // CREATE
       let data = args.data;
-      // this.store.dispatch(appLoading({ loading: true }));
+      this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(createOffice({ office: data }));
     }
   }

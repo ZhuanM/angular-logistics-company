@@ -76,48 +76,20 @@
     <!-- ADDRESS SECTION -->
     <div class="col-xl-3 mb-5">
         <div class="address-wrapper p-2">
-            <div class="address-header d-flex font-monsterrat justify-content-center align-items-center text-center">
+            <div class="address-header font-weight-bold d-flex font-monsterrat justify-content-center align-items-center text-center">
                 Office locations:
             </div>
+
             <hr class="custom-divider my-2">
-            <div>
-                Sofia:
-            </div>
-            <div>
-                ul. Opulchenska No 35
-            </div>
-            <div>
-                1233
-            </div>
-            <hr class="custom-divider my-2">
-            <div>
-                Sofia:
-            </div>
-            <div>
-                bul. Iliyantsi No 40
-            </div>
-            <div>
-                1220
-            </div>
-            <hr class="custom-divider my-2">
-            <div>
-                Varna:
-            </div>
-            <div>
-                ul. Sredets No 4
-            </div>
-            <div>
-                9003
-            </div>
-            <hr class="custom-divider my-2">
-            <div>
-                Burgas:
-            </div>
-            <div>
-                ul. Oborishte No 68
-            </div>
-            <div>
-                8001
+
+            <div *ngFor="let office of offices" class="font-monsterrat fs-15">
+                <div>
+                    <span class="font-italic mr-1">Name:</span> {{ office.name }}
+                </div>
+                <div>
+                    <span class="font-italic mr-1">Address:</span> {{ office.address }}
+                </div>
+                <hr class="custom-divider my-2">
             </div>
         </div>
     </div>

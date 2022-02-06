@@ -72,21 +72,20 @@ export class EmployeesComponent extends BaseComponent {
   }
 
   actionBegin(args: any): void {
-    // TODO TEST IF LOADER IS NEEDED
     if (args.action == "edit" && args.requestType == "save") {
       // UPDATE
       let data = args.data;
-      // this.store.dispatch(appLoading({ loading: true }));
+      this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(updateEmployee({ employee: data }));
     } else if (args.requestType == "delete") {
       // DELETE
       let employeeUsername = args.data[0].username;
-      // this.store.dispatch(appLoading({ loading: true }));
+      this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(deleteEmployee({ employeeUsername: employeeUsername }));
     } else if (args.action == "add" && args.requestType == "save") {
       // CREATE
       let data = args.data;
-      // this.store.dispatch(appLoading({ loading: true }));
+      this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(createEmployee({ employee: data }));
     }
   }

@@ -72,21 +72,20 @@ export class CustomersComponent extends BaseComponent {
   }
 
   actionBegin(args: any): void {
-    // TODO TEST IF LOADER IS NEEDED
     if (args.action == "edit" && args.requestType == "save") {
       // UPDATE
       let data = args.data;
-      // this.store.dispatch(appLoading({ loading: true }));
+      this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(updateCustomer({ customer: data }));
     } else if (args.requestType == "delete") {
       // DELETE
       let customerUsername = args.data[0].username;
-      // this.store.dispatch(appLoading({ loading: true }));
+      this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(deleteCustomer({ customerUsername: customerUsername }));
     } else if (args.action == "add" && args.requestType == "save") {
       // CREATE
       let data = args.data;
-      // this.store.dispatch(appLoading({ loading: true }));
+      this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(createCustomer({ customer: data }));
     }
   }

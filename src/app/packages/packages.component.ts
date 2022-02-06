@@ -53,7 +53,6 @@ export class PackagesComponent extends BaseComponent {
     this.packages$.pipe(takeUntil(this.destroyed$)).subscribe(packages => {
       if (packages) {
         this.packages = JSON.parse(JSON.stringify(packages));
-        console.log(this.packages);
       }
     });
 
@@ -100,21 +99,20 @@ export class PackagesComponent extends BaseComponent {
   }
 
   actionBegin(args: any): void {
-    // TODO TEST IF LOADER IS NEEDED
     if (args.action == "edit" && args.requestType == "save") {
       // UPDATE
       let data = args.data;
-      // this.store.dispatch(appLoading({ loading: true }));
+      this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(updatePackage({ package: data }));
     } else if (args.requestType == "delete") {
       // DELETE
       let packageId = args.data[0].id;
-      // this.store.dispatch(appLoading({ loading: true }));
+      this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(deletePackage({ packageId: packageId }));
     } else if (args.action == "add" && args.requestType == "save") {
       // CREATE
       let data = args.data;
-      // this.store.dispatch(appLoading({ loading: true }));
+      this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(createPackage({ package: data }));
     }
   }
