@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { customers } from './store/customers.selectors';
 import { appLoading } from '../loader/store/loader.actions';
+import { userRole } from '../auth/store/auth.selectors';
 
 @Component({
   selector: 'app-customers',
@@ -19,6 +20,9 @@ import { appLoading } from '../loader/store/loader.actions';
 export class CustomersComponent extends BaseComponent {
   readonly customers$: Observable<any> = this.store.pipe(select(customers), takeUntil(this.destroyed$));
   public customers: any;
+
+  readonly userRole$: Observable<string> = this.store.pipe(select(userRole), takeUntil(this.destroyed$));
+  private userRole: string;
 
   public data: Object[];
   public editSettings: Object;
@@ -35,7 +39,13 @@ export class CustomersComponent extends BaseComponent {
     super();
 
     this.customers$.pipe(takeUntil(this.destroyed$)).subscribe(customers => {
-      this.customers = JSON.parse(JSON.stringify(customers));
+      if (customers) {
+        this.customers = JSON.parse(JSON.stringify(customers));
+      }
+    });
+
+    this.userRole$.pipe(takeUntil(this.destroyed$)).subscribe(userRole => {
+      this.userRole = sessionStorage.getItem('userRole');
     });
 
     this.store.dispatch(appLoading({ loading: true }));
@@ -44,7 +54,13 @@ export class CustomersComponent extends BaseComponent {
 
   public ngOnInit(): void {
     this.data = orderDataSource;
-    this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true, newRowPosition: 'Top' };
+
+    if (this.userRole == "ADMIN") {
+      this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true, newRowPosition: 'Top' };
+    } else {
+      this.editSettings = { allowEditing: false, allowAdding: false, allowDeleting: false, newRowPosition: 'Top' };
+    }
+
     this.toolbar = ['Add', 'Edit', 'Delete', 'Update', 'Cancel'];
     this.idRules = { required: true, number: true };
     this.usernameRules = { required: true };
@@ -73,15 +89,5 @@ export class CustomersComponent extends BaseComponent {
       // this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(createCustomer({ customer: data }));
     }
-
-
-    // let gridInstance: any = (<any>document.getElementById('Normalgrid')).ej2_instances[0];
-    // if (args.requestType === 'save') {
-    //   if (gridInstance.pageSettings.currentPage !== 1 && gridInstance.editSettings.newRowPosition === 'Top') {
-    //     args.index = (gridInstance.pageSettings.currentPage * gridInstance.pageSettings.pageSize) - gridInstance.pageSettings.pageSize;
-    //   } else if (gridInstance.editSettings.newRowPosition === 'Bottom') {
-    //     args.index = (gridInstance.pageSettings.currentPage * gridInstance.pageSettings.pageSize) - 1;
-    //   }
-    // }
   }
 }

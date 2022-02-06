@@ -9,6 +9,7 @@ import { takeUntil } from 'rxjs/operators';
 import { employees } from './store/employees.selectors';
 import { appLoading } from '../loader/store/loader.actions';
 import { createEmployee, deleteEmployee, getAllEmployees, updateEmployee } from './store/employees.actions';
+import { userRole } from '../auth/store/auth.selectors';
 
 @Component({
   selector: 'app-employees',
@@ -19,7 +20,10 @@ import { createEmployee, deleteEmployee, getAllEmployees, updateEmployee } from 
 export class EmployeesComponent extends BaseComponent {
   readonly employees$: Observable<any> = this.store.pipe(select(employees), takeUntil(this.destroyed$));
   public employees: any;
-  
+
+  readonly userRole$: Observable<string> = this.store.pipe(select(userRole), takeUntil(this.destroyed$));
+  private userRole: string;
+
   public data: Object[];
   public editSettings: Object;
   public toolbar: string[];
@@ -31,11 +35,17 @@ export class EmployeesComponent extends BaseComponent {
   public editParams: Object;
   public pageSettings: Object;
 
-  constructor(private store: Store<AppState>) { 
+  constructor(private store: Store<AppState>) {
     super();
 
     this.employees$.pipe(takeUntil(this.destroyed$)).subscribe(employees => {
-      this.employees = JSON.parse(JSON.stringify(employees));
+      if (employees) {
+        this.employees = JSON.parse(JSON.stringify(employees));
+      }
+    });
+
+    this.userRole$.pipe(takeUntil(this.destroyed$)).subscribe(userRole => {
+      this.userRole = sessionStorage.getItem('userRole');
     });
 
     this.store.dispatch(appLoading({ loading: true }));
@@ -44,7 +54,13 @@ export class EmployeesComponent extends BaseComponent {
 
   public ngOnInit(): void {
     this.data = orderDataSource;
-    this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true, newRowPosition: 'Top' };
+
+    if (this.userRole == "ADMIN") {
+      this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true, newRowPosition: 'Top' };
+    } else {
+      this.editSettings = { allowEditing: false, allowAdding: false, allowDeleting: false, newRowPosition: 'Top' };
+    }
+
     this.toolbar = ['Add', 'Edit', 'Delete', 'Update', 'Cancel'];
     this.idRules = { required: true, number: true };
     this.usernameRules = { required: true };
@@ -56,32 +72,22 @@ export class EmployeesComponent extends BaseComponent {
   }
 
   actionBegin(args: any): void {
-       // TODO TEST IF LOADER IS NEEDED
-       if (args.action == "edit" && args.requestType == "save") {
-        // UPDATE
-        let data = args.data;
-        // this.store.dispatch(appLoading({ loading: true }));
-        this.store.dispatch(updateEmployee({ employee: data }));
-      } else if (args.requestType == "delete") {
-        // DELETE
-        let employeeUsername = args.data[0].username;
-        // this.store.dispatch(appLoading({ loading: true }));
-        this.store.dispatch(deleteEmployee({ employeeUsername: employeeUsername }));
-      } else if (args.action == "add" && args.requestType == "save") {
-        // CREATE
-        let data = args.data;
-        // this.store.dispatch(appLoading({ loading: true }));
-        this.store.dispatch(createEmployee({ employee: data }));
-      }
-
-
-    // let gridInstance: any = (<any>document.getElementById('Normalgrid')).ej2_instances[0];
-    // if (args.requestType === 'save') {
-    //   if (gridInstance.pageSettings.currentPage !== 1 && gridInstance.editSettings.newRowPosition === 'Top') {
-    //     args.index = (gridInstance.pageSettings.currentPage * gridInstance.pageSettings.pageSize) - gridInstance.pageSettings.pageSize;
-    //   } else if (gridInstance.editSettings.newRowPosition === 'Bottom') {
-    //     args.index = (gridInstance.pageSettings.currentPage * gridInstance.pageSettings.pageSize) - 1;
-    //   }
-    // }
+    // TODO TEST IF LOADER IS NEEDED
+    if (args.action == "edit" && args.requestType == "save") {
+      // UPDATE
+      let data = args.data;
+      // this.store.dispatch(appLoading({ loading: true }));
+      this.store.dispatch(updateEmployee({ employee: data }));
+    } else if (args.requestType == "delete") {
+      // DELETE
+      let employeeUsername = args.data[0].username;
+      // this.store.dispatch(appLoading({ loading: true }));
+      this.store.dispatch(deleteEmployee({ employeeUsername: employeeUsername }));
+    } else if (args.action == "add" && args.requestType == "save") {
+      // CREATE
+      let data = args.data;
+      // this.store.dispatch(appLoading({ loading: true }));
+      this.store.dispatch(createEmployee({ employee: data }));
+    }
   }
 }

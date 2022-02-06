@@ -21,7 +21,7 @@ export class CompanyEffects {
                         map(response => {
                             return CompanyActions.getCompanyNameSuccess(
                                 {
-                                    name: response,
+                                    name: response.name,
                                 }
                             )
                         }),

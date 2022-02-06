@@ -9,6 +9,7 @@ export interface State {
   user: User;
   userRole: string;
   fullName: string;
+  username: string;
 }
 
 export const initialState: State = {
@@ -18,6 +19,7 @@ export const initialState: State = {
   user: null,
   userRole: null,
   fullName: null,
+  username: null,
 }
 
 const _authReducer = createReducer(
@@ -61,8 +63,9 @@ const _authReducer = createReducer(
       authError: null,
       isLoading: false,
       user: null,
-      userRole: "loggedOut",
-      fullName: null
+      userRole: null,
+      fullName: null,
+      username: null,
     })
   ),
 
@@ -73,7 +76,8 @@ const _authReducer = createReducer(
       isLoading: false,
       user: action.user,
       userRole: action.userRole,
-      fullName: action.fullName
+      fullName: action.fullName,
+      username: action.username
     })
   ),
 );

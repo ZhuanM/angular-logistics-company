@@ -9,6 +9,7 @@ import { takeUntil } from 'rxjs/operators';
 import { offices } from './store/offices.selectors';
 import { createOffice, deleteOffice, getAllOffices, updateOffice } from './store/offices.actions';
 import { appLoading } from '../loader/store/loader.actions';
+import { userRole } from '../auth/store/auth.selectors';
 
 @Component({
   selector: 'app-offices',
@@ -19,6 +20,9 @@ import { appLoading } from '../loader/store/loader.actions';
 export class OfficesComponent extends BaseComponent {
   readonly offices$: Observable<any> = this.store.pipe(select(offices), takeUntil(this.destroyed$));
   public offices: any;
+
+  readonly userRole$: Observable<string> = this.store.pipe(select(userRole), takeUntil(this.destroyed$));
+  private userRole: string;
 
   public data: Object[];
   public editSettings: Object;
@@ -32,7 +36,13 @@ export class OfficesComponent extends BaseComponent {
   constructor(private store: Store<AppState>) { 
     super();
     this.offices$.pipe(takeUntil(this.destroyed$)).subscribe(offices => {
-      this.offices = JSON.parse(JSON.stringify(offices));
+      if (offices) {
+        this.offices = JSON.parse(JSON.stringify(offices));
+      }
+    });
+
+    this.userRole$.pipe(takeUntil(this.destroyed$)).subscribe(userRole => {
+      this.userRole = sessionStorage.getItem('userRole');
     });
 
     this.store.dispatch(appLoading({ loading: true }));
@@ -43,7 +53,12 @@ export class OfficesComponent extends BaseComponent {
     // FAKE DATA EXAMPLE
     this.data = orderDataSource;
 
-    this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true, newRowPosition: 'Top' };
+    if (this.userRole == "ADMIN") {
+      this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true, newRowPosition: 'Top' };
+    } else {
+      this.editSettings = { allowEditing: false, allowAdding: false, allowDeleting: false, newRowPosition: 'Top' };
+    }
+
     this.toolbar = ['Add', 'Edit', 'Delete', 'Update', 'Cancel'];
     this.idRules = { required: true, number: true };
     this.nameRules = { required: true };
@@ -70,15 +85,5 @@ export class OfficesComponent extends BaseComponent {
       // this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(createOffice({ office: data }));
     }
-    
-
-    // let gridInstance: any = (<any>document.getElementById('Normalgrid')).ej2_instances[0];
-    // if (args.requestType === 'save') {
-    //   if (gridInstance.pageSettings.currentPage !== 1 && gridInstance.editSettings.newRowPosition === 'Top') {
-    //     args.index = (gridInstance.pageSettings.currentPage * gridInstance.pageSettings.pageSize) - gridInstance.pageSettings.pageSize;
-    //   } else if (gridInstance.editSettings.newRowPosition === 'Bottom') {
-    //     args.index = (gridInstance.pageSettings.currentPage * gridInstance.pageSettings.pageSize) - 1;
-    //   }
-    // }
   }
 }

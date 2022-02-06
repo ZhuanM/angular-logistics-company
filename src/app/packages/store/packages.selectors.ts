@@ -4,3 +4,7 @@ import { State } from "./packages.reducer";
 
 const packagesSelector = createFeatureSelector<AppState, State>('packages');
 
+export const packages = createSelector(
+    packagesSelector,
+    (state: State) => state.packages
+);

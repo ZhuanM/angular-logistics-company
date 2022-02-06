@@ -1,4 +1,4 @@
-<div class="row mb-3 fs-28">
+<!-- <div class="row mb-3 fs-28">
     Packages:
 </div>
 <div class="row justify-content-center align-items-center">
@@ -10,7 +10,6 @@
                 <e-column field='Name' headerText='Name' width='150' textAlign='center' [validationRules]='nameRules'></e-column>
                 <e-column field='Sender' headerText='Sender' width='150' textAlign='center' [validationRules]='senderRules'></e-column>
                 <e-column field='Recipient' headerText='Recipient' width='150' textAlign='center' [validationRules]='recipientRules'></e-column>
-                <!-- TODO ADD "Company" COLUMN -->
                 <e-column field='Sent Date' headerText='Sent Date' width='150' textAlign='center' editType='datetimepickeredit' [format]='formatOptions' [validationRules]='sentDateRules'></e-column>
                 <e-column field='Expected Delivery' headerText='Expected Delivery' width='150' textAlign='center'  editType='datetimepickeredit' [format]='formatOptions' [validationRules]='expectedDeliveryRules'></e-column>
                 <e-column field='Status' headerText='Status' width='150' textAlign='center' editType='dropdownedit' [edit]='editParams' [validationRules]='statusRules'></e-column>
@@ -18,6 +17,32 @@
                 <e-column field='Price' headerText='Price' width='150' format='C2' editType='numericedit' textAlign='center' [validationRules]='priceRules'></e-column>
                 <e-column field='Weight' headerText='Weight' width='150' textAlign='center' editType='numericedit' [validationRules]='weightRules'></e-column>
                 <e-column field='Registered By' headerText='Registered By' width='150' textAlign='center' [validationRules]='registeredByRules'></e-column>
+            </e-columns>
+        </ejs-grid>
+    </div>
+</div> -->
+
+
+<div class="row mb-3 fs-28">
+    Packages:
+</div>
+<div class="row justify-content-center align-items-center">
+    <div class="col p-0">
+        <ejs-grid #normalgrid id='Normalgrid' [dataSource]='packages' allowPaging='true' allowSorting='true' allowFiltering='true' [pageSettings]='pageSettings' [editSettings]='editSettings' [toolbar]='toolbar'
+         (actionBegin)='actionBegin($event)'>
+            <e-columns>
+                <e-column field='id' headerText='ID' width='150' textAlign='center' isPrimaryKey='true' [validationRules]='idRules'></e-column>
+                <e-column field='name' headerText='Name' width='150' textAlign='center' isPrimaryKey='true' [validationRules]='nameRules'></e-column>
+                <e-column field='senderUsername' headerText='Sender' width='150' textAlign='center' isPrimaryKey='true' [validationRules]='senderRules'></e-column>
+                <e-column field='recipient' headerText='Recipient' width='150' textAlign='center' [validationRules]='recipientRules'></e-column>
+                <e-column field='companySymbol' headerText='Company' width='150' textAlign='center' isPrimaryKey='true' [validationRules]='companyRules'></e-column>
+                <e-column field='sentDate' headerText='Sent Date' width='150' textAlign='center' [validationRules]='sentDateRules'></e-column>
+                <e-column field='eta' headerText='Expected Delivery' width='150' textAlign='center' [validationRules]='expectedDeliveryRules'></e-column>
+                <e-column field='status' headerText='Status' width='150' textAlign='center' editType='dropdownedit' [edit]='editParams' [validationRules]='statusRules'></e-column>
+                <e-column field='recipientAddress' headerText='Delivery Address' width='150' textAlign='center' isPrimaryKey='true' [validationRules]='deliveryAddressRules'></e-column>
+                <e-column field='price' headerText='Price (lv.)' width='150' editType='numericedit' textAlign='center' [validationRules]='priceRules'></e-column>
+                <e-column field='weight' headerText='Weight (kg)' width='150' textAlign='center' editType='numericedit' isPrimaryKey='true' [validationRules]='weightRules'></e-column>
+                <e-column field='registeredBy' headerText='Registered By' width='150' textAlign='center' isPrimaryKey='true' [validationRules]='registeredByRules'></e-column>
             </e-columns>
         </ejs-grid>
     </div>

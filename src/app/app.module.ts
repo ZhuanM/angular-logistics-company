@@ -76,6 +76,7 @@ import { OfficesEffects } from "./offices/store/offices.effects";
 import { CustomersEffects } from "./customers/store/customers.effects";
 import { EmployeesEffects } from "./employees/store/employees.effects";
 import { CompanyEffects } from "./company/store/company.effects";
+import { PackagesEffects } from "./packages/store/packages.effects";
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'fill'
@@ -110,6 +111,7 @@ const appearance: MatFormFieldDefaultOptions = {
       CustomersEffects,
       EmployeesEffects,
       CompanyEffects,
+      PackagesEffects,
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states

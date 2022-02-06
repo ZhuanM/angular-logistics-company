@@ -47,7 +47,8 @@ export const getUserSuccess = createAction(
   props<{
     user: User,
     userRole: string,
-    fullName: string
+    fullName: string,
+    username: string
   }>()
 );
 

@@ -29,3 +29,8 @@ export const user = createSelector(
   (state: State) => state.user
 );
 
+export const username = createSelector(
+  authFeatureSelector,
+  (state: State) => state.username
+);
+
