@@ -43,7 +43,7 @@ export class OfficesService {
   }
 
   deleteOffice(officeId: any) {
-    let httpParams = new HttpParams().set('id', '1');
+    let httpParams = new HttpParams().set('id', officeId);
     let options = { params: httpParams };
 
     return this.http.delete<any>(
