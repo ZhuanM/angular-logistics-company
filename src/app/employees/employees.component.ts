@@ -3,7 +3,6 @@ import { select, Store } from '@ngrx/store';
 import { AppState } from '../models/app-state.interface';
 import { BaseComponent } from '../shared/base.component';
 import { EditService, ToolbarService, PageService, SortService, FilterService } from '@syncfusion/ej2-angular-grids';
-import { orderDataSource } from './data';
 import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { employees } from './store/employees.selectors';
@@ -53,8 +52,6 @@ export class EmployeesComponent extends BaseComponent {
   }
 
   public ngOnInit(): void {
-    this.data = orderDataSource;
-
     if (this.userRole == "ADMIN") {
       this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true, newRowPosition: 'Top' };
     } else {

@@ -3,14 +3,12 @@ import { select, Store } from '@ngrx/store';
 import { AppState } from '../models/app-state.interface';
 import { BaseComponent } from '../shared/base.component';
 import { EditService, ToolbarService, PageService, FilterService, SortService } from '@syncfusion/ej2-angular-grids';
-import { orderDataSource } from './data';
 import { Observable } from 'rxjs';
 import { packages } from './store/packages.selectors';
 import { takeUntil } from 'rxjs/operators';
 import { appLoading } from '../loader/store/loader.actions';
 import { createPackage, deletePackage, getAllPackages, getUserPackages, updatePackage } from './store/packages.actions';
 import { username, userRole } from '../auth/store/auth.selectors';
-import { loadCldr, setCulture, setCurrencyCode, L10n } from '@syncfusion/ej2-base';
 
 @Component({
   selector: 'app-packages',
@@ -73,8 +71,6 @@ export class PackagesComponent extends BaseComponent {
   }
 
   public ngOnInit(): void {
-    this.data = orderDataSource;
-
     if (this.userRole == "ADMIN") {
       this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true, newRowPosition: 'Top' };
     } else {
