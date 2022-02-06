@@ -22,8 +22,8 @@ export const apiUrls = {
   updateOfficeUrl: environment.apiBaseUrl + 'api/offices/update', // DONE
   deleteOfficeUrl: environment.apiBaseUrl + 'api/offices/delete', // DONE
   // Employees
-  getAllEmployees: environment.apiBaseUrl + 'api/users/employees',
+  getAllEmployeesUrl: environment.apiBaseUrl + 'api/users/employees',
   // Customers
-  getAllCustomers: environment.apiBaseUrl + 'api/users/customers',
+  getAllCustomersUrl: environment.apiBaseUrl + 'api/users/customers',
   // TODO Company
 }

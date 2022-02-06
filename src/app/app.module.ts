@@ -73,6 +73,7 @@ import { AuthInterceptor } from "./auth/auth.interceptor";
 import { LoaderComponent } from "./loader/loader.component";
 import { SendPackageEffects } from "./send-package/store/send-package.effects";
 import { OfficesEffects } from "./offices/store/offices.effects";
+import { CustomersEffects } from "./customers/store/customers.effects";
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'fill'
@@ -104,6 +105,7 @@ const appearance: MatFormFieldDefaultOptions = {
       HeaderEffects,
       SendPackageEffects,
       OfficesEffects,
+      CustomersEffects,
     ]),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states

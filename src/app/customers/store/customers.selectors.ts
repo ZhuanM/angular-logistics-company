@@ -4,3 +4,7 @@ import { State } from "./customers.reducer";
 
 const customersSelector = createFeatureSelector<AppState, State>('customers');
 
+export const customers = createSelector(
+    customersSelector,
+    (state: State) => state.customers
+);
