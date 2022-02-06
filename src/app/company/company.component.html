@@ -36,6 +36,10 @@
                             [disabled]="!profitForm.valid" type="submit">
                             Check Profit
                         </button>
+
+                        <div *ngIf="companyProfit" class="mt-4 fs-20 text-center font-monsterrat">
+                            <span class="font-weight-bold">Profit for the given period is:</span> {{ companyProfit }}lv.
+                        </div>
                     </form>
                 </div>
             </div>
