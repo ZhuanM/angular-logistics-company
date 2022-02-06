@@ -12,22 +12,15 @@
                     Company details
                 </div>
 
-                <form [formGroup]="companyForm" (ngSubmit)="onNameSubmit()">
-                    <div class="mb-3">
-                        <mat-form-field class="w-100">
-                            <mat-label>Name</mat-label>
-                            <input matInput type="text" formControlName="name" [(ngModel)]="companyName" required>
-                        </mat-form-field>
+                <mat-form-field class="w-100">
+                    <mat-label>Name</mat-label>
+                    <input matInput type="text" [(ngModel)]="companyName" readonly>
+                </mat-form-field>
+
+                <div class="mt-4">
+                    <div class="mb-3 fs-26 main-title-text font-metropolis-semi-bold">
+                        Check profit:
                     </div>
-
-                    <button mat-raised-button
-                        class="w-100 blue-nbu-button white-color text-uppercase lg-spaced-text send-button-text font-metropolis-medium"
-                        [disabled]="!companyForm.valid" type="submit">
-                        Save
-                    </button>
-                </form>
-
-                <div class="mt-5">
                     <form [formGroup]="profitForm" (ngSubmit)="onProfitSubmit()">
                         <mat-form-field class="w-100">
                             <mat-label>Start Date</mat-label>

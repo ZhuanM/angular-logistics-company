@@ -13,10 +13,6 @@ import { BaseComponent } from '../shared/base.component';
 export class CompanyComponent extends BaseComponent {
   public companyName: string = "Test";
 
-  public companyForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-  });
-
   public profitForm = new FormGroup({
     startDate: new FormControl('', [Validators.required]),
     endDate: new FormControl('', [Validators.required]),
@@ -24,18 +20,6 @@ export class CompanyComponent extends BaseComponent {
   
   constructor(private store: Store<AppState>) { 
     super()
-  }
-
-  public onNameSubmit() {
-    if (this.companyForm.valid) {
-      this.store.dispatch(appLoading({ loading: true }));
-      // this.store.dispatch(AuthActions.login(
-      //   {
-      //     username: this.companyForm.get('username').value,
-      //     password: this.companyForm.get('password').value
-      //   }
-      // ));
-    }
   }
 
   public onProfitSubmit() {
