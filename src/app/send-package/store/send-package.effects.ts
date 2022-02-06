@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { switchMap } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { map, switchMap } from 'rxjs/operators';
 import * as SendPackageActions from './send-package.actions';
 import { SendPackageService } from '../send-package.service';
 
@@ -11,7 +10,6 @@ export class SendPackageEffects {
   constructor(
     private actions$: Actions,
     private sendPackageService: SendPackageService,
-    private router: Router
   ){}
 
   createPackage$ = createEffect(() =>
@@ -19,7 +17,6 @@ export class SendPackageEffects {
     ofType(SendPackageActions.createPackage),
     switchMap(action => {
       return this.sendPackageService.createPackage(
-        action.name,
         action.senderUsername,
         action.recipient,
         action.registeredBy,
@@ -29,6 +26,11 @@ export class SendPackageEffects {
         action.eta,
         action.weight,
         action.price)
+        .pipe(
+          map(() => {
+            return SendPackageActions.createPackageSuccess();
+          })
+        );
       })
     )
   );

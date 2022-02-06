@@ -3,7 +3,6 @@ import { createAction, props } from "@ngrx/store";
 export const createPackage = createAction(
     '[SendPackage Component] Create Package',
     props<{
-        name: string,
         senderUsername: string,
         recipient: string,
         registeredBy: string,
@@ -14,4 +13,8 @@ export const createPackage = createAction(
         weight: string,
         price: string
     }>()
+);
+
+export const createPackageSuccess = createAction(
+    '[SendPackage Component] Create Package Success',
 );

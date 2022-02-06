@@ -12,7 +12,7 @@ export const apiUrls = {
   deleteUserUrl: environment.apiBaseUrl + 'api/users/delete',
   // Packages
   getAllPackagesUrl: environment.apiBaseUrl + 'api/deliveries/all',
-  createPackageUrl: environment.apiBaseUrl + 'api/deliveries/save', // DONE (In send package page)
+  createPackageUrl: environment.apiBaseUrl + 'api/deliveries/save', // DONE
   updatePackageUrl: environment.apiBaseUrl + 'api/deliveries/update',
   deletePackageUrl: environment.apiBaseUrl + 'api/deliveries/delete',
   // Offices

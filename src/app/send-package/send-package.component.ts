@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
+import { ActionsSubject, Store } from '@ngrx/store';
 import { appLoading } from '../loader/store/loader.actions';
 import { AppState } from '../models/app-state.interface';
 import { BaseComponent } from '../shared/base.component';
 import * as SendPackageActions from '../send-package/store/send-package.actions';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-send-package',
@@ -12,8 +14,9 @@ import * as SendPackageActions from '../send-package/store/send-package.actions'
   styleUrls: ['./send-package.component.scss']
 })
 export class SendPackageComponent extends BaseComponent {
+  private subscription = new Subscription();
+
   public sendPackageForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
     sender: new FormControl('', [Validators.required]),
     recipient: new FormControl('', [Validators.required]),
     registeredBy: new FormControl('', [Validators.required]),
@@ -30,9 +33,14 @@ export class SendPackageComponent extends BaseComponent {
     { value: 'IN_COURIER', viewValue: 'In Courier' },
     { value: 'DELIVERED', viewValue: 'Delivered' },
   ];
-  
-  constructor(private store: Store<AppState>) { 
-    super()
+
+  constructor(private store: Store<AppState>, private actionsSubject$: ActionsSubject) {
+    super();
+
+    this.subscription.add(this.actionsSubject$.pipe(filter((action) => action.type === '[SendPackage Component] Create Package Success'))
+    .subscribe(() => {
+      location.reload();
+    }));
   }
 
   public onSubmit() {
@@ -40,7 +48,6 @@ export class SendPackageComponent extends BaseComponent {
       this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(SendPackageActions.createPackage(
         {
-          name: this.sendPackageForm.get('name').value,
           senderUsername: this.sendPackageForm.get('sender').value,
           recipient: this.sendPackageForm.get('recipient').value,
           registeredBy: this.sendPackageForm.get('registeredBy').value,
@@ -53,5 +60,9 @@ export class SendPackageComponent extends BaseComponent {
         }
       ));
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

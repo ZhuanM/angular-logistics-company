@@ -15,13 +15,6 @@
                 <form [formGroup]="sendPackageForm" (ngSubmit)="onSubmit()">
                     <div class="mb-3">
                         <mat-form-field class="w-100">
-                            <mat-label>Name</mat-label>
-                            <input matInput type="text" formControlName="name" required>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="mb-3">
-                        <mat-form-field class="w-100">
                             <mat-label>Sender</mat-label>
                             <input matInput type="text" formControlName="sender" required>
                         </mat-form-field>

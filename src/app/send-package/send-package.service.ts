@@ -10,7 +10,6 @@ export class SendPackageService {
   ) {}
 
   createPackage(
-    name: string,
     senderUsername: string,
     recipient: string,
     registeredBy: string,
@@ -24,10 +23,12 @@ export class SendPackageService {
     return this.http.post<any>(
       apiUrls.createPackageUrl,
       {
-        "name": name,
+        "name": "",
         "senderUsername": senderUsername,
         "recipient": recipient,
-        "registeredBy": registeredBy,
+        "registeredBy": {
+          "username": registeredBy
+        },
         "company": {
           "id": 1,
           "name": "Ekont"
