@@ -19,6 +19,11 @@ export const userRole = createSelector(
   (state: State) => state.userRole
 );
 
+export const fullName = createSelector(
+  authFeatureSelector,
+  (state: State) => state.fullName
+);
+
 export const user = createSelector(
   authFeatureSelector,
   (state: State) => state.user

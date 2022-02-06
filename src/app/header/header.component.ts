@@ -10,7 +10,7 @@ import * as HeaderSelectors from '../header/store/header.selectors';
 import * as HeaderActions from '../header/store/header.actions';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Router } from '@angular/router';
-import { userRole } from '../auth/store/auth.selectors';
+import { fullName, userRole } from '../auth/store/auth.selectors';
 
 @Component({
   selector: 'app-header',
@@ -22,8 +22,10 @@ export class HeaderComponent extends BaseComponent {
   
   readonly sidenavOpened$: Observable<boolean> = this.store.pipe(select(HeaderSelectors.sidenavOpened), takeUntil(this.destroyed$));
   readonly userRole$: Observable<string> = this.store.pipe(select(userRole), takeUntil(this.destroyed$));
+  readonly fullName$: Observable<string> = this.store.pipe(select(fullName), takeUntil(this.destroyed$));
   
   public userRole: string;
+  public fullName: string;
   
   public isMobile: boolean = false;
 
@@ -36,6 +38,10 @@ export class HeaderComponent extends BaseComponent {
     
     this.userRole$.pipe(takeUntil(this.destroyed$)).subscribe(userRole => {
       this.userRole = sessionStorage.getItem('userRole');
+    });
+
+    this.fullName$.pipe(takeUntil(this.destroyed$)).subscribe(fullName => {
+      this.fullName = sessionStorage.getItem('fullName');
     });
   }
 

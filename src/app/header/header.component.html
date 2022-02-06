@@ -7,7 +7,10 @@
   <div class="col-auto pointer h-100 d-flex align-items-center pr-0 unselectable" routerLink="/home" (click)="redirectToHome()">
     <img src="./../../assets/logo/logo_transparent.png" alt="NBU Logistics Logo">
   </div>
-  <div *ngIf="userRole == 'USER' || userRole == 'ADMIN' || userRole == 'COURIER'" class="col h-100 d-flex justify-content-end align-items-center pl-0">
+  <div *ngIf="userRole == 'USER' || userRole == 'ADMIN' || userRole == 'COURIER'" class="col name-text font-monsterrat h-100 white-color d-flex justify-content-end align-items-center pl-0">
+    Hello, {{ fullName }}
+  </div>
+  <div *ngIf="userRole == 'USER' || userRole == 'ADMIN' || userRole == 'COURIER'" class="col-auto h-100 d-flex justify-content-end align-items-center pl-0">
     <div class="row h-100">
       <div class="col-auto white-color d-flex align-items-center pointer settings-icon d-flex align-items-center p-0 ml-4">
         <button mat-icon-button class="settings-button" [matMenuTriggerFor]="settings" [disableRipple]="true" aria-label="Settings">

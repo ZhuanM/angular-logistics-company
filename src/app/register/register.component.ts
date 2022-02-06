@@ -32,7 +32,6 @@ export class RegisterComponent extends BaseComponent {
       repeatPassword: new FormControl('', [Validators.required]),
     }, this.passwordConfirming),
     role: new FormControl(''),
-    securityKey: new FormControl('')
   });
   
   constructor(
@@ -59,23 +58,6 @@ export class RegisterComponent extends BaseComponent {
         }
       ));
     }
-  }
-
-  public onRadioChange(event: MatRadioChange) {
-    if (event.value == 'client') {
-      this.showSecurityKeyForm = false;
-
-      this.registerForm.get('securityKey').clearValidators();
-      this.registerForm.get('securityKey').setValue('');
-      this.registerForm.get('securityKey').markAsPristine();
-      this.registerForm.get('securityKey').markAsUntouched();
-    } else {
-      this.showSecurityKeyForm = true;
-
-      this.registerForm.get('securityKey').setValidators(Validators.required);
-    }
-
-    this.cdr.detectChanges();
   }
 
   private passwordConfirming(c: AbstractControl): { invalid: boolean } {

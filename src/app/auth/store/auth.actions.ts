@@ -46,7 +46,8 @@ export const getUserSuccess = createAction(
   '[Auth Component] Get User Success',
   props<{
     user: User,
-    userRole: string
+    userRole: string,
+    fullName: string
   }>()
 );
 

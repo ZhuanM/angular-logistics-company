@@ -45,10 +45,12 @@ export class AuthEffects {
         .pipe(
           map(response => {
             sessionStorage.setItem('userRole', response.role);
+            sessionStorage.setItem('fullName', response.fullName);
             return AuthActions.getUserSuccess(
               {
                 user: response,
-                userRole: response.role
+                userRole: response.role,
+                fullName: response.fullName
               }
             )
           })
@@ -64,6 +66,7 @@ export class AuthEffects {
       map(() => {
         sessionStorage.removeItem('access_token');
         sessionStorage.removeItem('userRole');
+        sessionStorage.removeItem('fullName');
 
         return AuthActions.logoutSuccess();
       }),

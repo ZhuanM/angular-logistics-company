@@ -8,6 +8,7 @@ export interface State {
   isLoading: boolean;
   user: User;
   userRole: string;
+  fullName: string;
 }
 
 export const initialState: State = {
@@ -16,6 +17,7 @@ export const initialState: State = {
   isLoading: false,
   user: null,
   userRole: null,
+  fullName: null,
 }
 
 const _authReducer = createReducer(
@@ -59,7 +61,8 @@ const _authReducer = createReducer(
       authError: null,
       isLoading: false,
       user: null,
-      userRole: "loggedOut"
+      userRole: "loggedOut",
+      fullName: null
     })
   ),
 
@@ -69,7 +72,8 @@ const _authReducer = createReducer(
       ...state,
       isLoading: false,
       user: action.user,
-      userRole: action.userRole
+      userRole: action.userRole,
+      fullName: action.fullName
     })
   ),
 );
