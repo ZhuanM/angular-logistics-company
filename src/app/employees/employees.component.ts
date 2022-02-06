@@ -39,7 +39,6 @@ export class EmployeesComponent extends BaseComponent {
   }
 
   actionBegin(args: any): void {
-    console.log(args)
     
     // let gridInstance: any = (<any>document.getElementById('Normalgrid')).ej2_instances[0];
     // if (args.requestType === 'save') {

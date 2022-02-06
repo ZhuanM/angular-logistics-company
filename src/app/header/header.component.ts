@@ -33,8 +33,9 @@ export class HeaderComponent extends BaseComponent {
     private router: Router,
   ) {
     super();
+    
     this.userRole$.pipe(takeUntil(this.destroyed$)).subscribe(userRole => {
-      this.userRole = userRole;
+      this.userRole = sessionStorage.getItem('userRole');
     });
   }
 

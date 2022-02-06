@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { offices } from './store/offices.selectors';
 import { createOffice, deleteOffice, getAllOffices, updateOffice } from './store/offices.actions';
+import { appLoading } from '../loader/store/loader.actions';
 
 @Component({
   selector: 'app-offices',
@@ -34,6 +35,7 @@ export class OfficesComponent extends BaseComponent {
       this.offices = JSON.parse(JSON.stringify(offices));
     });
 
+    this.store.dispatch(appLoading({ loading: true }));
     this.store.dispatch(getAllOffices());
   }
 
@@ -51,17 +53,21 @@ export class OfficesComponent extends BaseComponent {
   }
 
   actionBegin(args: any): void {
-    console.log(args)
+    // TODO TEST IF LOADER IS NEEDED
     if (args.action == "edit" && args.requestType == "save") {
+      // UPDATE
       let data = args.data;
+      // this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(updateOffice({ office: data }));
     } else if (args.requestType == "delete") {
-      // DELETE OFFICE
+      // DELETE
       let officeId = args.data[0].id;
+      // this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(deleteOffice({ officeId: officeId }));
     } else if (args.action == "add" && args.requestType == "save") {
-      // CREATE OFFICE
+      // CREATE
       let data = args.data;
+      // this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(createOffice({ office: data }));
     }
     

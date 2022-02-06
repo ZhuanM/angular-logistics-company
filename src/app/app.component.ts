@@ -49,7 +49,7 @@ export class AppComponent extends BaseComponent {
     super();
     
     this.userRole$.pipe(takeUntil(this.destroyed$)).subscribe(userRole => {
-      this.userRole = userRole;
+      this.userRole = sessionStorage.getItem('userRole');
       this.updateSidenavItems();
     });
   }

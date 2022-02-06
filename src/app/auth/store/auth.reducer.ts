@@ -59,7 +59,7 @@ const _authReducer = createReducer(
       authError: null,
       isLoading: false,
       user: null,
-      userRole: null
+      userRole: "loggedOut"
     })
   ),
 

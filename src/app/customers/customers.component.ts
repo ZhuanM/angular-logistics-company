@@ -28,7 +28,6 @@ export class CustomersComponent extends BaseComponent {
 
   public ngOnInit(): void {
     this.data = orderDataSource;
-    console.log(this.data);
     this.editSettings = { allowEditing: true, allowAdding: true, allowDeleting: true, newRowPosition: 'Top' };
     this.toolbar = ['Add', 'Edit', 'Delete', 'Update', 'Cancel'];
     this.idRules = { required: true, number: true };
@@ -40,7 +39,6 @@ export class CustomersComponent extends BaseComponent {
   }
 
   actionBegin(args: any): void {
-    console.log(args)
     
     // let gridInstance: any = (<any>document.getElementById('Normalgrid')).ej2_instances[0];
     // if (args.requestType === 'save') {

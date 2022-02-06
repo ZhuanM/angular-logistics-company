@@ -18,9 +18,12 @@ export class OfficesService {
     return this.http.post<any>(
       apiUrls.createOfficeUrl,
       {
-        "id": office.id,
         "name": office.name,
         "address": office.address,
+        "company": {
+          "id": "1",
+          "name": "Ekont"
+        }
       }
     )
   }
@@ -32,8 +35,8 @@ export class OfficesService {
         "name": office.name,
         "address": office.address,
         "company": {
-          "id": office.company.id,
-          "name": office.company.name
+          "id": "1",
+          "name": "Ekont"
         }
       }
     )

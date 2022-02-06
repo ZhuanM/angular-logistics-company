@@ -44,6 +44,7 @@ export class AuthEffects {
       return this.authService.getUser(action.username)
         .pipe(
           map(response => {
+            sessionStorage.setItem('userRole', response.role);
             return AuthActions.getUserSuccess(
               {
                 user: response,
@@ -62,6 +63,7 @@ export class AuthEffects {
       tap(() => this.router.navigate(['/home'])),
       map(() => {
         sessionStorage.removeItem('access_token');
+        sessionStorage.removeItem('userRole');
 
         return AuthActions.logoutSuccess();
       }),
