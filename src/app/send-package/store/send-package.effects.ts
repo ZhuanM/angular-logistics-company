@@ -23,7 +23,6 @@ export class SendPackageEffects {
         action.senderUsername,
         action.recipient,
         action.registeredBy,
-        action.company,
         action.status,
         action.recipientAddress,
         action.sentDate,

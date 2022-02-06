@@ -7,7 +7,6 @@ export const createPackage = createAction(
         senderUsername: string,
         recipient: string,
         registeredBy: string,
-        company: string,
         status: string,
         recipientAddress: string,
         sentDate: string,

@@ -14,7 +14,6 @@ export class SendPackageService {
     senderUsername: string,
     recipient: string,
     registeredBy: string,
-    company: string,
     status: string,
     recipientAddress: string,
     sentDate: string,
@@ -29,7 +28,10 @@ export class SendPackageService {
         "senderUsername": senderUsername,
         "recipient": recipient,
         "registeredBy": registeredBy,
-        "company": company,
+        "company": {
+          "id": 1,
+          "name": "Ekont"
+        },
         "status": status,
         "recipientAddress": recipientAddress,
         "sentDate": sentDate,
