@@ -12,6 +12,7 @@ export const apiUrls = {
   deleteUserUrl: environment.apiBaseUrl + 'api/users/delete',
   // Packages
   getAllPackagesUrl: environment.apiBaseUrl + 'api/deliveries/all',
+  getUserPackagesUrl: environment.apiBaseUrl + 'api/deliveries/all/user',
   createPackageUrl: environment.apiBaseUrl + 'api/deliveries/save', // DONE
   updatePackageUrl: environment.apiBaseUrl + 'api/deliveries/update',
   deletePackageUrl: environment.apiBaseUrl + 'api/deliveries/delete',
@@ -20,6 +21,9 @@ export const apiUrls = {
   createOfficeUrl: environment.apiBaseUrl + 'api/offices/save', // DONE
   updateOfficeUrl: environment.apiBaseUrl + 'api/offices/update', // DONE
   deleteOfficeUrl: environment.apiBaseUrl + 'api/offices/delete', // DONE
-  // TODO COMPANY
-  
+  // Employees
+  getAllEmployees: environment.apiBaseUrl + 'api/users/employees',
+  // Customers
+  getAllCustomers: environment.apiBaseUrl + 'api/users/customers',
+  // TODO Company
 }
