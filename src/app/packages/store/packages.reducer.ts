@@ -19,6 +19,14 @@ const _packagesReducer = createReducer(
       packages: action.packages
     })
   ),
+
+  on(
+    PackagesActions.getUserPackagesSuccess,
+    (state, action) => ({
+      ...state,
+      packages: action.packages
+    })
+  ),
 );
 
 export function packagesReducer(state: State, action: Action) {

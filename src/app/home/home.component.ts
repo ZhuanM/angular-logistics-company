@@ -40,7 +40,6 @@ export class HomeComponent extends BaseComponent {
     this.offices$.pipe(takeUntil(this.destroyed$)).subscribe(offices => {
       if (offices) {
         this.offices = JSON.parse(JSON.stringify(offices));
-        console.log(this.offices);
       }
     });
 
