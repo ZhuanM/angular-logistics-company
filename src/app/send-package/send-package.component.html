@@ -30,11 +30,24 @@
                     <div class="mb-3">
                         <mat-form-field class="w-100">
                             <mat-label>Registered By</mat-label>
-                            <input matInput type="text" formControlName="registeredBy" required>
+                            <input matInput type="text" formControlName="registeredBy" [(ngModel)]="registeredBy"
+                                readonly>
                         </mat-form-field>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-4">
+                        <div class="mb-2 grey-color">Send to:</div>
+                        <mat-radio-group (change)="onAddressChange($event)" >
+                            <mat-radio-button class="mr-5" value="office" [checked]=true>
+                                Office
+                            </mat-radio-button>
+                            <mat-radio-button value="address">
+                                Address
+                            </mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+
+                    <div *ngIf="showRecipientAddress" class="mb-3">
                         <mat-form-field class="w-100">
                             <mat-label>Recipient Address</mat-label>
                             <input matInput type="text" formControlName="recipientAddress" required>

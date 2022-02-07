@@ -36,7 +36,6 @@ export class RegisterComponent extends BaseComponent {
   
   constructor(
     private store: Store<AppState>,
-    private cdr: ChangeDetectorRef,
   ) {
     super();
   }

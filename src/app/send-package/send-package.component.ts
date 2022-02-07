@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActionsSubject, Store } from '@ngrx/store';
+import { ActionsSubject, select, Store } from '@ngrx/store';
 import { appLoading } from '../loader/store/loader.actions';
 import { AppState } from '../models/app-state.interface';
 import { BaseComponent } from '../shared/base.component';
 import * as SendPackageActions from '../send-package/store/send-package.actions';
-import { Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
+import { username } from '../auth/store/auth.selectors';
+import { MatRadioChange } from '@angular/material/radio';
 
 @Component({
   selector: 'app-send-package',
@@ -16,12 +18,18 @@ import { filter } from 'rxjs/operators';
 export class SendPackageComponent extends BaseComponent {
   private subscription = new Subscription();
 
+  readonly username$: Observable<string> = this.store.pipe(select(username), takeUntil(this.destroyed$));
+
+  public registeredBy: string;
+
+  public showRecipientAddress: boolean = false;
+
   public sendPackageForm = new FormGroup({
     sender: new FormControl('', [Validators.required]),
     recipient: new FormControl('', [Validators.required]),
     registeredBy: new FormControl('', [Validators.required]),
     status: new FormControl('', [Validators.required]),
-    recipientAddress: new FormControl('', [Validators.required]),
+    recipientAddress: new FormControl(''),
     sentDate: new FormControl('', [Validators.required]),
     expectedDate: new FormControl('', [Validators.required]),
     weight: new FormControl('', [Validators.required]),
@@ -33,8 +41,15 @@ export class SendPackageComponent extends BaseComponent {
     { value: 'DELIVERED', viewValue: 'Delivered' },
   ];
 
-  constructor(private store: Store<AppState>, private actionsSubject$: ActionsSubject) {
+  constructor(private store: Store<AppState>, 
+    private actionsSubject$: ActionsSubject,
+    private cdr: ChangeDetectorRef,
+    ) {
     super();
+
+    this.username$.pipe(takeUntil(this.destroyed$)).subscribe(username => {
+      this.registeredBy = sessionStorage.getItem('username');
+    });
 
     // THIS IS IN CASE WE NEED TO REFRESH THE WEB PAGE WHEN THE CREATE PACKAGE HAS SUCCEEDED
     // this.subscription.add(this.actionsSubject$.pipe(filter((action) => action.type === '[SendPackage Component] Create Package Success'))
@@ -59,6 +74,23 @@ export class SendPackageComponent extends BaseComponent {
         }
       ));
     }
+  }
+
+  public onAddressChange(event: MatRadioChange) {
+    if (event.value == 'office') {
+      this.showRecipientAddress = false;
+
+      this.sendPackageForm.get('recipientAddress').clearValidators();
+      this.sendPackageForm.get('recipientAddress').setValue('');
+      this.sendPackageForm.get('recipientAddress').markAsPristine();
+      this.sendPackageForm.get('recipientAddress').markAsUntouched();
+    } else {
+      this.showRecipientAddress = true;
+
+      this.sendPackageForm.get('recipientAddress').setValidators(Validators.required);
+    }
+
+    this.cdr.detectChanges();
   }
 
   ngOnDestroy() {
