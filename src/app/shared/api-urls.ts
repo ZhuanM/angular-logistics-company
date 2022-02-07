@@ -3,6 +3,8 @@ import { environment } from 'src/environments/environment';
 export const apiUrls = {
   // Authentication
   loginUrl: environment.apiBaseUrl + 'authenticate',
+  // TODO CHANGE WHEN DONE
+  // loginUrl: environment.apiBaseUrl + 'api/users/authenticate',
   registerUrl: environment.apiBaseUrl + 'api/users/register',
   // Users
   getUserUrl: environment.apiBaseUrl + 'api/users/user',

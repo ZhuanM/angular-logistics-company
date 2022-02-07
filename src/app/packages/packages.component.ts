@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { ActionsSubject, select, Store } from '@ngrx/store';
 import { AppState } from '../models/app-state.interface';
 import { BaseComponent } from '../shared/base.component';
 import { EditService, ToolbarService, PageService, FilterService, SortService } from '@syncfusion/ej2-angular-grids';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { packages } from './store/packages.selectors';
-import { takeUntil } from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs/operators';
 import { appLoading } from '../loader/store/loader.actions';
 import { createPackage, deletePackage, getAllPackages, getUserPackages, updatePackage } from './store/packages.actions';
 import { username, userRole } from '../auth/store/auth.selectors';
@@ -17,6 +17,8 @@ import { username, userRole } from '../auth/store/auth.selectors';
   providers: [ToolbarService, EditService, PageService, SortService, FilterService]
 })
 export class PackagesComponent extends BaseComponent {
+  private subscription = new Subscription();
+
   readonly packages$: Observable<any> = this.store.pipe(select(packages), takeUntil(this.destroyed$));
   public packages: any;
 
@@ -45,7 +47,8 @@ export class PackagesComponent extends BaseComponent {
   public editParams: Object;
   public pageSettings: Object;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>,
+    private actionsSubject$: ActionsSubject) {
     super();
 
     this.packages$.pipe(takeUntil(this.destroyed$)).subscribe(packages => {
@@ -62,10 +65,20 @@ export class PackagesComponent extends BaseComponent {
       this.username = sessionStorage.getItem('username');
     });
 
+    this.subscription.add(this.actionsSubject$.pipe(filter((action) => action.type === '[Packages Component] Create Package Success'))
+    .subscribe(() => {
+      this.store.dispatch(appLoading({ loading: true }));
+      if (this.userRole == "USER") {
+        this.store.dispatch(getUserPackages({ username: this.username }));
+      } else if (this.userRole == "ADMIN" || this.userRole == "COURIER") {
+        this.store.dispatch(getAllPackages());
+      }
+    }));
+
     this.store.dispatch(appLoading({ loading: true }));
     if (this.userRole == "USER") {
       this.store.dispatch(getUserPackages({ username: this.username }));
-    } else {
+    } else if (this.userRole == "ADMIN" || this.userRole == "COURIER") {
       this.store.dispatch(getAllPackages());
     }
   }
@@ -111,5 +124,9 @@ export class PackagesComponent extends BaseComponent {
       this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(createPackage({ package: data }));
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

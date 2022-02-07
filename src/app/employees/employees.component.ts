@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { ActionsSubject, select, Store } from '@ngrx/store';
 import { AppState } from '../models/app-state.interface';
 import { BaseComponent } from '../shared/base.component';
 import { EditService, ToolbarService, PageService, SortService, FilterService } from '@syncfusion/ej2-angular-grids';
-import { Observable } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
 import { employees } from './store/employees.selectors';
 import { appLoading } from '../loader/store/loader.actions';
 import { createEmployee, deleteEmployee, getAllEmployees, updateEmployee } from './store/employees.actions';
@@ -17,6 +17,8 @@ import { userRole } from '../auth/store/auth.selectors';
   providers: [ToolbarService, EditService, PageService, SortService, FilterService]
 })
 export class EmployeesComponent extends BaseComponent {
+  private subscription = new Subscription();
+
   readonly employees$: Observable<any> = this.store.pipe(select(employees), takeUntil(this.destroyed$));
   public employees: any;
 
@@ -34,7 +36,8 @@ export class EmployeesComponent extends BaseComponent {
   public editParams: Object;
   public pageSettings: Object;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>,
+    private actionsSubject$: ActionsSubject) {
     super();
 
     this.employees$.pipe(takeUntil(this.destroyed$)).subscribe(employees => {
@@ -46,6 +49,12 @@ export class EmployeesComponent extends BaseComponent {
     this.userRole$.pipe(takeUntil(this.destroyed$)).subscribe(userRole => {
       this.userRole = sessionStorage.getItem('userRole');
     });
+
+    this.subscription.add(this.actionsSubject$.pipe(filter((action) => action.type === '[Employees Component] Create Employee Success'))
+    .subscribe(() => {
+      this.store.dispatch(appLoading({ loading: true }));
+      this.store.dispatch(getAllEmployees());
+    }));
 
     this.store.dispatch(appLoading({ loading: true }));
     this.store.dispatch(getAllEmployees());
@@ -85,5 +94,9 @@ export class EmployeesComponent extends BaseComponent {
       this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(createEmployee({ employee: data }));
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

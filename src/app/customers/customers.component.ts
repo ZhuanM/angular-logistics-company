@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { ActionsSubject, select, Store } from '@ngrx/store';
 import { AppState } from '../models/app-state.interface';
 import { BaseComponent } from '../shared/base.component';
 import { EditService, ToolbarService, PageService, FilterService, SortService } from '@syncfusion/ej2-angular-grids';
 import { createCustomer, deleteCustomer, getAllCustomers, updateCustomer } from './store/customers.actions';
-import { Observable } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
 import { customers } from './store/customers.selectors';
 import { appLoading } from '../loader/store/loader.actions';
 import { userRole } from '../auth/store/auth.selectors';
@@ -17,6 +17,8 @@ import { userRole } from '../auth/store/auth.selectors';
   providers: [ToolbarService, EditService, PageService, SortService, FilterService]
 })
 export class CustomersComponent extends BaseComponent {
+  private subscription = new Subscription();
+
   readonly customers$: Observable<any> = this.store.pipe(select(customers), takeUntil(this.destroyed$));
   public customers: any;
 
@@ -34,7 +36,8 @@ export class CustomersComponent extends BaseComponent {
   public editParams: Object;
   public pageSettings: Object;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>,
+    private actionsSubject$: ActionsSubject) {
     super();
 
     this.customers$.pipe(takeUntil(this.destroyed$)).subscribe(customers => {
@@ -46,6 +49,12 @@ export class CustomersComponent extends BaseComponent {
     this.userRole$.pipe(takeUntil(this.destroyed$)).subscribe(userRole => {
       this.userRole = sessionStorage.getItem('userRole');
     });
+
+    this.subscription.add(this.actionsSubject$.pipe(filter((action) => action.type === '[Customers Component] Create Customer Success'))
+    .subscribe(() => {
+      this.store.dispatch(appLoading({ loading: true }));
+      this.store.dispatch(getAllCustomers());
+    }));
 
     this.store.dispatch(appLoading({ loading: true }));
     this.store.dispatch(getAllCustomers());
@@ -85,5 +94,9 @@ export class CustomersComponent extends BaseComponent {
       this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(createCustomer({ customer: data }));
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

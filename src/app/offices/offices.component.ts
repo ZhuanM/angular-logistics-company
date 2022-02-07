@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { select, Store } from '@ngrx/store';
+import { ActionsSubject, select, Store } from '@ngrx/store';
 import { AppState } from '../models/app-state.interface';
 import { BaseComponent } from '../shared/base.component';
 import { EditService, ToolbarService, PageService, SortService, FilterService } from '@syncfusion/ej2-angular-grids';
-import { Observable } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
 import { offices } from './store/offices.selectors';
 import { createOffice, deleteOffice, getAllOffices, updateOffice } from './store/offices.actions';
 import { appLoading } from '../loader/store/loader.actions';
@@ -17,6 +17,8 @@ import { userRole } from '../auth/store/auth.selectors';
   providers: [ToolbarService, EditService, PageService, SortService, FilterService]
 })
 export class OfficesComponent extends BaseComponent {
+  private subscription = new Subscription();
+
   readonly offices$: Observable<any> = this.store.pipe(select(offices), takeUntil(this.destroyed$));
   public offices: any;
 
@@ -32,7 +34,8 @@ export class OfficesComponent extends BaseComponent {
   public editParams: Object;
   public pageSettings: Object;
 
-  constructor(private store: Store<AppState>) { 
+  constructor(private store: Store<AppState>,
+    private actionsSubject$: ActionsSubject) { 
     super();
     this.offices$.pipe(takeUntil(this.destroyed$)).subscribe(offices => {
       if (offices) {
@@ -43,6 +46,12 @@ export class OfficesComponent extends BaseComponent {
     this.userRole$.pipe(takeUntil(this.destroyed$)).subscribe(userRole => {
       this.userRole = sessionStorage.getItem('userRole');
     });
+
+    this.subscription.add(this.actionsSubject$.pipe(filter((action) => action.type === '[Offices Component] Create Office Success'))
+    .subscribe(() => {
+      this.store.dispatch(appLoading({ loading: true }));
+      this.store.dispatch(getAllOffices());
+    }));
 
     this.store.dispatch(appLoading({ loading: true }));
     this.store.dispatch(getAllOffices());
@@ -81,5 +90,9 @@ export class OfficesComponent extends BaseComponent {
       this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(createOffice({ office: data }));
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
