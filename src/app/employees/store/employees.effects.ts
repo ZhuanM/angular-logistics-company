@@ -48,7 +48,12 @@ export class EmployeesEffects {
         this.actions$.pipe(
             ofType(EmployeesActions.updateEmployee),
             switchMap(action => {
-                return this.employeesService.updateEmployee(action.employee);
+                return this.employeesService.updateEmployee(action.employee)
+                    .pipe(
+                        map(response => {
+                            return EmployeesActions.updateEmployeeSuccess();
+                        })
+                    )
             })
         )
     );
@@ -57,7 +62,12 @@ export class EmployeesEffects {
         this.actions$.pipe(
             ofType(EmployeesActions.deleteEmployee),
             switchMap(action => {
-                return this.employeesService.deleteEmployee(action.employeeUsername);
+                return this.employeesService.deleteEmployee(action.employeeUsername)
+                    .pipe(
+                        map(response => {
+                            return EmployeesActions.deleteEmployeeSuccess();
+                        })
+                    )
             })
         )
     );

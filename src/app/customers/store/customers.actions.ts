@@ -39,3 +39,8 @@ export const deleteCustomer = createAction(
         customerUsername: any
     }>()
 );
+
+export const deleteCustomerSuccess = createAction(
+    '[Customers Component] Delete Customer Success',
+);
+

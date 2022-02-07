@@ -66,7 +66,12 @@ export class PackagesEffects {
         this.actions$.pipe(
             ofType(PackagesActions.updatePackage),
             switchMap(action => {
-                return this.packagesService.updatePackage(action.package);
+                return this.packagesService.updatePackage(action.package)
+                    .pipe(
+                        map(response => {
+                            return PackagesActions.updatePackageSuccess();
+                        })
+                    )
             })
         )
     );
@@ -75,7 +80,12 @@ export class PackagesEffects {
         this.actions$.pipe(
             ofType(PackagesActions.deletePackage),
             switchMap(action => {
-                return this.packagesService.deletePackage(action.packageId);
+                return this.packagesService.deletePackage(action.packageId)
+                    .pipe(
+                        map(response => {
+                            return PackagesActions.deletePackageSuccess();
+                        })
+                    )
             })
         )
     );

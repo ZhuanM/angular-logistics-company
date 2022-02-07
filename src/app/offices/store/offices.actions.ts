@@ -39,3 +39,8 @@ export const deleteOffice = createAction(
         officeId: any
     }>()
 );
+
+export const deleteOfficeSuccess = createAction(
+    '[Offices Component] Delete Office Success',
+);
+

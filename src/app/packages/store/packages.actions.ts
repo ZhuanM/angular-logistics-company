@@ -53,3 +53,7 @@ export const deletePackage = createAction(
         packageId: any
     }>()
 );
+
+export const deletePackageSuccess = createAction(
+    '[Packages Component] Delete Package Success',
+);

@@ -48,7 +48,12 @@ export class CustomersEffects {
         this.actions$.pipe(
             ofType(CustomersActions.updateCustomer),
             switchMap(action => {
-                return this.customersService.updateCustomer(action.customer);
+                return this.customersService.updateCustomer(action.customer)
+                    .pipe(
+                        map(response => {
+                            return CustomersActions.updateCustomerSuccess();
+                        })
+                    )
             })
         )
     );
@@ -57,7 +62,12 @@ export class CustomersEffects {
         this.actions$.pipe(
             ofType(CustomersActions.deleteCustomer),
             switchMap(action => {
-                return this.customersService.deleteCustomer(action.customerUsername);
+                return this.customersService.deleteCustomer(action.customerUsername)
+                    .pipe(
+                        map(response => {
+                            return CustomersActions.deleteCustomerSuccess();
+                        })
+                    )
             })
         )
     );

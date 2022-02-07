@@ -48,7 +48,12 @@ export class OfficesEffects {
         this.actions$.pipe(
             ofType(OfficesActions.updateOffice),
             switchMap(action => {
-                return this.officesService.updateOffice(action.office);
+                return this.officesService.updateOffice(action.office)
+                    .pipe(
+                        map(response => {
+                            return OfficesActions.updateOfficeSuccess();
+                        })
+                    )
             })
         )
     );
@@ -57,7 +62,12 @@ export class OfficesEffects {
         this.actions$.pipe(
             ofType(OfficesActions.deleteOffice),
             switchMap(action => {
-                return this.officesService.deleteOffice(action.officeId);
+                return this.officesService.deleteOffice(action.officeId)
+                    .pipe(
+                        map(response => {
+                            return OfficesActions.deleteOfficeSuccess();
+                        })
+                    )
             })
         )
     );

@@ -39,3 +39,7 @@ export const deleteEmployee = createAction(
         employeeUsername: any
     }>()
 );
+
+export const deleteEmployeeSuccess = createAction(
+    '[Employees Component] Delete Employee Success',
+);
