@@ -9,6 +9,8 @@ import { employees } from './store/employees.selectors';
 import { appLoading } from '../loader/store/loader.actions';
 import { createEmployee, deleteEmployee, getAllEmployees, updateEmployee } from './store/employees.actions';
 import { userRole } from '../auth/store/auth.selectors';
+import { AppService } from '../app.service';
+import { MessageType } from '../models/message-type.enum';
 
 @Component({
   selector: 'app-employees',
@@ -37,7 +39,8 @@ export class EmployeesComponent extends BaseComponent {
   public pageSettings: Object;
 
   constructor(private store: Store<AppState>,
-    private actionsSubject$: ActionsSubject) {
+    private actionsSubject$: ActionsSubject,
+    private appService: AppService) {
     super();
 
     this.employees$.pipe(takeUntil(this.destroyed$)).subscribe(employees => {
@@ -52,8 +55,20 @@ export class EmployeesComponent extends BaseComponent {
 
     this.subscription.add(this.actionsSubject$.pipe(filter((action) => action.type === '[Employees Component] Create Employee Success'))
     .subscribe(() => {
+      this.appService.openSnackBar("Successfully added new employee!", MessageType.Success);
+
       this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(getAllEmployees());
+    }));
+
+    this.subscription.add(this.actionsSubject$.pipe(filter((action) => action.type === '[Employees Component] Update Employee Success'))
+    .subscribe(() => {
+      this.appService.openSnackBar("Successfully updated employee!", MessageType.Success);
+    }));
+
+    this.subscription.add(this.actionsSubject$.pipe(filter((action) => action.type === '[Employees Component] Delete Employee Success'))
+    .subscribe(() => {
+      this.appService.openSnackBar("Successfully deleted employee!", MessageType.Success);
     }));
 
     this.store.dispatch(appLoading({ loading: true }));

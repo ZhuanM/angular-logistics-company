@@ -9,6 +9,8 @@ import { filter, takeUntil } from 'rxjs/operators';
 import { customers } from './store/customers.selectors';
 import { appLoading } from '../loader/store/loader.actions';
 import { userRole } from '../auth/store/auth.selectors';
+import { AppService } from '../app.service';
+import { MessageType } from '../models/message-type.enum';
 
 @Component({
   selector: 'app-customers',
@@ -37,7 +39,8 @@ export class CustomersComponent extends BaseComponent {
   public pageSettings: Object;
 
   constructor(private store: Store<AppState>,
-    private actionsSubject$: ActionsSubject) {
+    private actionsSubject$: ActionsSubject,
+    private appService: AppService) {
     super();
 
     this.customers$.pipe(takeUntil(this.destroyed$)).subscribe(customers => {
@@ -52,8 +55,20 @@ export class CustomersComponent extends BaseComponent {
 
     this.subscription.add(this.actionsSubject$.pipe(filter((action) => action.type === '[Customers Component] Create Customer Success'))
     .subscribe(() => {
+      this.appService.openSnackBar("Successfully added new customer!", MessageType.Success);
+
       this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(getAllCustomers());
+    }));
+
+    this.subscription.add(this.actionsSubject$.pipe(filter((action) => action.type === '[Customers Component] Update Customer Success'))
+    .subscribe(() => {
+      this.appService.openSnackBar("Successfully updated customer!", MessageType.Success);
+    }));
+
+    this.subscription.add(this.actionsSubject$.pipe(filter((action) => action.type === '[Customers Component] Delete Customer Success'))
+    .subscribe(() => {
+      this.appService.openSnackBar("Successfully deleted customer!", MessageType.Success);
     }));
 
     this.store.dispatch(appLoading({ loading: true }));

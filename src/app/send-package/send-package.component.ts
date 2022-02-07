@@ -9,6 +9,8 @@ import { Observable, Subscription } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { username } from '../auth/store/auth.selectors';
 import { MatRadioChange } from '@angular/material/radio';
+import { AppService } from '../app.service';
+import { MessageType } from '../models/message-type.enum';
 
 @Component({
   selector: 'app-send-package',
@@ -44,6 +46,7 @@ export class SendPackageComponent extends BaseComponent {
   constructor(private store: Store<AppState>, 
     private actionsSubject$: ActionsSubject,
     private cdr: ChangeDetectorRef,
+    private appService: AppService
     ) {
     super();
 
@@ -51,11 +54,10 @@ export class SendPackageComponent extends BaseComponent {
       this.registeredBy = sessionStorage.getItem('username');
     });
 
-    // THIS IS IN CASE WE NEED TO REFRESH THE WEB PAGE WHEN THE CREATE PACKAGE HAS SUCCEEDED
-    // this.subscription.add(this.actionsSubject$.pipe(filter((action) => action.type === '[SendPackage Component] Create Package Success'))
-    // .subscribe(() => {
-    //   location.reload();
-    // }));
+    this.subscription.add(this.actionsSubject$.pipe(filter((action) => action.type === '[SendPackage Component] Create Package Success'))
+    .subscribe(() => {
+      this.appService.openSnackBar("Successfully sent package!", MessageType.Success);
+    }));
   }
 
   public onSubmit() {

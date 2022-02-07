@@ -3,10 +3,12 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { switchMap, catchError, map, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { AuthService } from './../auth.service';
+import { AppService } from '../../app.service';
 import * as AuthActions from './auth.actions';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Auth } from 'src/app/models/auth.interface';
+import { MessageType } from 'src/app/models/message-type.enum';
 
 
 @Injectable()
@@ -47,6 +49,9 @@ export class AuthEffects {
             sessionStorage.setItem('userRole', response.role);
             sessionStorage.setItem('fullName', response.fullName);
             sessionStorage.setItem('username', response.username);
+
+            this.appService.openSnackBar("Successfully logged in!", MessageType.Success);
+
             return AuthActions.getUserSuccess(
               {
                 user: response,
@@ -105,6 +110,7 @@ export class AuthEffects {
   constructor(
     private actions$: Actions,
     private authService: AuthService,
+    private appService: AppService,
     private router: Router
   ){}
 

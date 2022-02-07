@@ -9,6 +9,8 @@ import { offices } from './store/offices.selectors';
 import { createOffice, deleteOffice, getAllOffices, updateOffice } from './store/offices.actions';
 import { appLoading } from '../loader/store/loader.actions';
 import { userRole } from '../auth/store/auth.selectors';
+import { MessageType } from '../models/message-type.enum';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-offices',
@@ -35,7 +37,8 @@ export class OfficesComponent extends BaseComponent {
   public pageSettings: Object;
 
   constructor(private store: Store<AppState>,
-    private actionsSubject$: ActionsSubject) { 
+    private actionsSubject$: ActionsSubject,
+    private appService: AppService) { 
     super();
     this.offices$.pipe(takeUntil(this.destroyed$)).subscribe(offices => {
       if (offices) {
@@ -49,8 +52,20 @@ export class OfficesComponent extends BaseComponent {
 
     this.subscription.add(this.actionsSubject$.pipe(filter((action) => action.type === '[Offices Component] Create Office Success'))
     .subscribe(() => {
+      this.appService.openSnackBar("Successfully added new office!", MessageType.Success);
+
       this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(getAllOffices());
+    }));
+
+    this.subscription.add(this.actionsSubject$.pipe(filter((action) => action.type === '[Offices Component] Update Office Success'))
+    .subscribe(() => {
+      this.appService.openSnackBar("Successfully updated office!", MessageType.Success);
+    }));
+
+    this.subscription.add(this.actionsSubject$.pipe(filter((action) => action.type === '[Offices Component] Delete Office Success'))
+    .subscribe(() => {
+      this.appService.openSnackBar("Successfully deleted office!", MessageType.Success);
     }));
 
     this.store.dispatch(appLoading({ loading: true }));

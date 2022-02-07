@@ -9,6 +9,8 @@ import { filter, takeUntil } from 'rxjs/operators';
 import { appLoading } from '../loader/store/loader.actions';
 import { createPackage, deletePackage, getAllPackages, getUserPackages, updatePackage } from './store/packages.actions';
 import { username, userRole } from '../auth/store/auth.selectors';
+import { AppService } from '../app.service';
+import { MessageType } from '../models/message-type.enum';
 
 @Component({
   selector: 'app-packages',
@@ -48,7 +50,8 @@ export class PackagesComponent extends BaseComponent {
   public pageSettings: Object;
 
   constructor(private store: Store<AppState>,
-    private actionsSubject$: ActionsSubject) {
+    private actionsSubject$: ActionsSubject,
+    private appService: AppService) {
     super();
 
     this.packages$.pipe(takeUntil(this.destroyed$)).subscribe(packages => {
@@ -67,12 +70,24 @@ export class PackagesComponent extends BaseComponent {
 
     this.subscription.add(this.actionsSubject$.pipe(filter((action) => action.type === '[Packages Component] Create Package Success'))
     .subscribe(() => {
+      this.appService.openSnackBar("Successfully added new package!", MessageType.Success);
+
       this.store.dispatch(appLoading({ loading: true }));
       if (this.userRole == "USER") {
         this.store.dispatch(getUserPackages({ username: this.username }));
       } else if (this.userRole == "ADMIN" || this.userRole == "COURIER") {
         this.store.dispatch(getAllPackages());
       }
+    }));
+
+    this.subscription.add(this.actionsSubject$.pipe(filter((action) => action.type === '[Packages Component] Update Package Success'))
+    .subscribe(() => {
+      this.appService.openSnackBar("Successfully updated package!", MessageType.Success);
+    }));
+
+    this.subscription.add(this.actionsSubject$.pipe(filter((action) => action.type === '[Packages Component] Delete Package Success'))
+    .subscribe(() => {
+      this.appService.openSnackBar("Successfully deleted package!", MessageType.Success);
     }));
 
     this.store.dispatch(appLoading({ loading: true }));
