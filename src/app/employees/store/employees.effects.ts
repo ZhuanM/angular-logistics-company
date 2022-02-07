@@ -34,7 +34,12 @@ export class EmployeesEffects {
         this.actions$.pipe(
             ofType(EmployeesActions.createEmployee),
             switchMap(action => {
-                return this.employeesService.createEmployee(action.employee);
+                return this.employeesService.createEmployee(action.employee)
+                    .pipe(
+                        map(response => {
+                            return EmployeesActions.createEmployeeSuccess();
+                        })
+                    )
             })
         )
     );

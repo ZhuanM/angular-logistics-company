@@ -36,10 +36,11 @@ export class SendPackageComponent extends BaseComponent {
   constructor(private store: Store<AppState>, private actionsSubject$: ActionsSubject) {
     super();
 
-    this.subscription.add(this.actionsSubject$.pipe(filter((action) => action.type === '[SendPackage Component] Create Package Success'))
-    .subscribe(() => {
-      location.reload();
-    }));
+    // THIS IS IN CASE WE NEED TO REFRESH THE WEB PAGE WHEN THE CREATE PACKAGE HAS SUCCEEDED
+    // this.subscription.add(this.actionsSubject$.pipe(filter((action) => action.type === '[SendPackage Component] Create Package Success'))
+    // .subscribe(() => {
+    //   location.reload();
+    // }));
   }
 
   public onSubmit() {

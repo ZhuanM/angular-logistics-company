@@ -32,6 +32,10 @@ export const createPackage = createAction(
     }>()
 );
 
+export const createPackageSuccess = createAction(
+    '[Packages Component] Create Package Success',
+);
+
 export const updatePackage = createAction(
     '[Packages Component] Update Package',
     props<{

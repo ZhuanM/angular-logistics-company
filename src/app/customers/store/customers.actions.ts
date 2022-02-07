@@ -18,6 +18,10 @@ export const createCustomer = createAction(
     }>()
 );
 
+export const createCustomerSuccess = createAction(
+    '[Customers Component] Create Customer Success',
+);
+
 export const updateCustomer = createAction(
     '[Customers Component] Update Customer',
     props<{

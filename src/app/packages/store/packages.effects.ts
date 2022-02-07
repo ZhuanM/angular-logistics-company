@@ -52,7 +52,12 @@ export class PackagesEffects {
         this.actions$.pipe(
             ofType(PackagesActions.createPackage),
             switchMap(action => {
-                return this.packagesService.createPackage(action.package);
+                return this.packagesService.createPackage(action.package)
+                    .pipe(
+                        map(response => {
+                            return PackagesActions.createPackageSuccess();
+                        })
+                    )
             })
         )
     );

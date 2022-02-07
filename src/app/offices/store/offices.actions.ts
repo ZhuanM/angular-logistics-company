@@ -18,6 +18,10 @@ export const createOffice = createAction(
     }>()
 );
 
+export const createOfficeSuccess = createAction(
+    '[Offices Component] Create Office Success',
+);
+
 export const updateOffice = createAction(
     '[Offices Component] Update Office',
     props<{

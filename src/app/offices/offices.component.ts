@@ -66,6 +66,7 @@ export class OfficesComponent extends BaseComponent {
   actionBegin(args: any): void {
     if (args.action == "edit" && args.requestType == "save") {
       // UPDATE
+      debugger
       let data = args.data;
       this.store.dispatch(appLoading({ loading: true }));
       this.store.dispatch(updateOffice({ office: data }));

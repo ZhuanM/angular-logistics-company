@@ -34,7 +34,12 @@ export class CustomersEffects {
         this.actions$.pipe(
             ofType(CustomersActions.createCustomer),
             switchMap(action => {
-                return this.customersService.createCustomer(action.customer);
+                return this.customersService.createCustomer(action.customer)
+                    .pipe(
+                        map(response => {
+                            return CustomersActions.createCustomerSuccess();
+                        })
+                    )
             })
         )
     );

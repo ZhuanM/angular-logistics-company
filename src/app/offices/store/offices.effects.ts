@@ -34,7 +34,12 @@ export class OfficesEffects {
         this.actions$.pipe(
             ofType(OfficesActions.createOffice),
             switchMap(action => {
-                return this.officesService.createOffice(action.office);
+                return this.officesService.createOffice(action.office)
+                    .pipe(
+                        map(response => {
+                            return OfficesActions.createOfficeSuccess();
+                        })
+                    );
             })
         )
     );

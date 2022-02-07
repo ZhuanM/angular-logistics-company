@@ -18,6 +18,10 @@ export const createEmployee = createAction(
     }>()
 );
 
+export const createEmployeeSuccess = createAction(
+    '[Employees Component] Create Employee Success',
+);
+
 export const updateEmployee = createAction(
     '[Employees Component] Update Employee',
     props<{
