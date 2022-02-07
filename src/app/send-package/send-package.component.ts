@@ -73,6 +73,8 @@ export class SendPackageComponent extends BaseComponent {
           weight: this.sendPackageForm.get('weight').value,
         }
       ));
+
+      this.sendPackageForm.reset();
     }
   }
 
