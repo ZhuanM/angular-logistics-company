@@ -52,6 +52,10 @@ const _authReducer = createReducer(
       accessToken: null,
       authError: action.errorMessage,
       isLoading: false,
+      user: null,
+      userRole: null,
+      fullName: null,
+      username: null,
     })
   ),
 
