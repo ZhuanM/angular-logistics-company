@@ -11,7 +11,6 @@ export const createPackage = createAction(
         sentDate: string,
         eta: string,
         weight: string,
-        price: string
     }>()
 );
 

@@ -18,7 +18,6 @@ export class SendPackageService {
     sentDate: string,
     eta: string,
     weight: string,
-    price: string
     ) {
     return this.http.post<any>(
       apiUrls.createPackageUrl,
@@ -26,19 +25,13 @@ export class SendPackageService {
         "name": "",
         "senderUsername": senderUsername,
         "recipient": recipient,
-        "registeredBy": {
-          "username": registeredBy
-        },
-        "company": {
-          "id": 1,
-          "name": "Ekont"
-        },
+        "registeredBy": registeredBy,
+        "companySymbol": "EKNT",
         "status": status,
         "recipientAddress": recipientAddress,
         "sentDate": sentDate,
         "eta": eta,
         "weight": weight,
-        "price": price,
       }
     )
   }

@@ -34,7 +34,7 @@ export class PackagesService {
         "eta": _package.eta,
         "id": _package.id,
         "name": _package.name,
-        "price": _package.price,
+        "price": "0",
         "recipient": _package.recipient,
         "recipientAddress": _package.recipientAddress,
         "registeredBy": _package.registeredBy,

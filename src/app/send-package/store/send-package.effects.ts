@@ -24,8 +24,7 @@ export class SendPackageEffects {
         action.recipientAddress,
         action.sentDate,
         action.eta,
-        action.weight,
-        action.price)
+        action.weight)
         .pipe(
           map(() => {
             return SendPackageActions.createPackageSuccess();

@@ -25,7 +25,6 @@ export class SendPackageComponent extends BaseComponent {
     sentDate: new FormControl('', [Validators.required]),
     expectedDate: new FormControl('', [Validators.required]),
     weight: new FormControl('', [Validators.required]),
-    price: new FormControl('', [Validators.required]),
   });
 
   public statusOptions: any[] = [
@@ -56,7 +55,6 @@ export class SendPackageComponent extends BaseComponent {
           sentDate: this.sendPackageForm.get('sentDate').value,
           eta: this.sendPackageForm.get('expectedDate').value,
           weight: this.sendPackageForm.get('weight').value,
-          price: this.sendPackageForm.get('price').value
         }
       ));
     }

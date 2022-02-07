@@ -15,7 +15,7 @@
                 <e-column field='eta' headerText='Expected Delivery' width='150' textAlign='center' [validationRules]='expectedDeliveryRules'></e-column>
                 <e-column field='status' headerText='Status' width='150' textAlign='center' editType='dropdownedit' [edit]='editParams' [validationRules]='statusRules'></e-column>
                 <e-column field='recipientAddress' headerText='Delivery Address' width='150' textAlign='center' isPrimaryKey='true' [validationRules]='deliveryAddressRules'></e-column>
-                <e-column field='price' headerText='Price (lv.)' width='150' editType='numericedit' textAlign='center' [validationRules]='priceRules'></e-column>
+                <e-column field='price' headerText='Price (lv.)' width='150' editType='numericedit' textAlign='center' isPrimaryKey='true' [validationRules]='priceRules'></e-column>
                 <e-column field='weight' headerText='Weight (kg)' width='150' textAlign='center' editType='numericedit' isPrimaryKey='true' [validationRules]='weightRules'></e-column>
                 <e-column field='registeredBy' headerText='Registered By' width='150' textAlign='center' isPrimaryKey='true' [validationRules]='registeredByRules'></e-column>
             </e-columns>
