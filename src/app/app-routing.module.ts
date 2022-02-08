@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [ AutoLoginGuard ] },
   { path: 'register', component: RegisterComponent, canActivate: [ AutoLoginGuard ] },
   { path: 'packages', component: PackagesComponent, canActivate: [ AuthGuard ] },
-  { path: 'send_package', component: SendPackageComponent, canActivate: [ AuthGuard, WorkerGuard ] },
+  { path: 'send_package', component: SendPackageComponent, canActivate: [ AuthGuard, AdminGuard ] },
   { path: 'company', component: CompanyComponent, canActivate: [ AuthGuard, AdminGuard ] },
   { path: 'employees', component: EmployeesComponent, canActivate: [ AuthGuard, AdminGuard ] },
   { path: 'customers', component: CustomersComponent, canActivate: [ AuthGuard, AdminGuard ] },

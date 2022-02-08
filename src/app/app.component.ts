@@ -109,12 +109,7 @@ export class AppComponent extends BaseComponent {
           icon: "inventory_2",
           text: "Packages",
           clicked: this.packagesURL
-        },
-        {
-          icon: "ios_share",
-          text: "Send Package",
-          clicked: this.sendPackageURL
-        },
+        }
       ];
     } else if (this.userRole == "ADMIN") {
       this.homeURL = true;
@@ -228,10 +223,6 @@ export class AppComponent extends BaseComponent {
         this.packagesURL = true;
         this.homeURL = false;
         this.sendPackageURL = false;
-      } else if (this.location.path() == "/send_package") {
-        this.sendPackageURL = true;
-        this.homeURL = false;
-        this.packagesURL = false;
       }
 
       this.sideNavItems = [
@@ -244,12 +235,7 @@ export class AppComponent extends BaseComponent {
           icon: "inventory_2",
           text: "Packages",
           clicked: this.packagesURL
-        },
-        {
-          icon: "ios_share",
-          text: "Send Package",
-          clicked: this.sendPackageURL
-        },
+        }
       ];
     } else if (this.userRole == "ADMIN") {
       if (this.location.path() == "/home") {
@@ -453,19 +439,6 @@ export class AppComponent extends BaseComponent {
             }
           } else {
             this.router.navigate(['packages']);
-            if (this.sidenav.mode == 'over') {
-              this.closeSidenav();
-            }
-          }
-          break;
-        case "Send Package":
-          if (this.location.path() == "/send_package") {
-            window.location.reload();
-            if (this.sidenav.mode == 'over') {
-              this.closeSidenav();
-            }
-          } else {
-            this.router.navigate(['send_package']);
             if (this.sidenav.mode == 'over') {
               this.closeSidenav();
             }
